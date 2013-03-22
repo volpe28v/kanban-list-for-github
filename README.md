@@ -1,27 +1,20 @@
-# かんばんりすと
+# かんばんりすと for github issues
 
-ソフトウェアかんばん風のタスク管理アプリです。
+GitHubのissueを「かんばんりすと」のUIで管理したい
+
 
 ## Installation
 
 Ruby ver 1.9.2
 
 ```bash
-$ git clone git@github.com:volpe28v/kanban-list.git
-$ cd kanban-list
+$ git clone git@github.com:volpe28v/kanban-list-for-github.git
+$ cd kanban-list-for-github
 $ bundle
 $ rake db:migrate
 $ rails s
 ```
 
-## Demo
-http://kanban-list.heroku.com/
-
-```
-サンプルアカウント
- mail: sample@kanban.list
- pass: sample
-```
 
 ## License
 (The MIT License)
