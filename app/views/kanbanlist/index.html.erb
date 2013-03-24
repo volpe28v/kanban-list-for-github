@@ -2,7 +2,7 @@
 
 <div id="wrapper">
 <div class="hero-unit">
-  <h1>かんばんりすと</h1>
+  <h1>かんばんりすと for Github issues</h1>
   <p>
     <h3>かんばんりすと って？</h3>
     <ul>
@@ -16,22 +16,15 @@
       <li>タッチ対応ですのでスマートフォンやタブレッド等でもご利用いただけます</li>
     </ul>
 
-    <h3>サンプルアカウント</h3>
-    <ul>
-      <li>Email: sample@kanban.list</li>
-      <li>Pass: sample</li>
-    </ul>
-
     <h3>ソースコード</h3>
     <ul>
-      <li><a href=https://github.com/volpe28v/kanban-list>https://github.com/volpe28v/kanban-list</a></li>
+      <li><a href=https://github.com/volpe28v/kanban-list-for-github>https://github.com/volpe28v/kanban-list-for-github</a></li>
       <li>ご意見ご要望などあれば GitHub の issue などでお気軽に連絡ください</li>
     </ul>
   </p>
 
   <p>
-    <%= link_to 'ユーザー登録', [ :new, :user_registration ] ,:class => 'btn btn-primary btn-large' %>
-    <%= link_to 'ログイン', [ :new, :user_session ],:class => 'btn btn-primary btn-large'  %>
+    <%= link_to "Sign in with Github", user_omniauth_authorize_path(:github), :class => "btn btn-info",  %></p>
   </p>
   There are <span id="user_count"><%= @all_user_count %></span> users and <span id="today_tasks"><%= @today_task_count %></span>/<span id="all_tasks"><%= @all_task_count %></span> [today/all] tasks in かんばんりすと.
 </div>

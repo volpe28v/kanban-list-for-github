@@ -2,7 +2,7 @@ Todolist::Application.routes.draw do
 
   root :to => "kanbanlist#index"
 
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   get 'tasks', :to => 'tasks#index', :as => :user_root
 
   get "kanbanlist/index"
