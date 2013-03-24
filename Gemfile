@@ -1,11 +1,6 @@
-if RUBY_VERSION =~ /1.9/
-  Encoding.default_external = Encoding::UTF_8
-  Encoding.default_internal = Encoding::UTF_8
-end
-
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -40,14 +35,10 @@ group :development, :test do
   gem 'factory_girl'
   gem 'factory_girl_rails'
   gem 'quiet_assets'
-#  gem 'rcov'
-#  gem 'ci_reporter'
 end
 
 group :production do
   gem 'pg'
-  gem 'execjs'
-  gem 'therubyracer', '0.9.8'
 end
 
 # Use unicorn as the web server
