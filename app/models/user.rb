@@ -5,8 +5,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :login, :image, :location, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :name, :bg_img, :layout, :pomo
+  attr_accessible :login, :image, :location, :github_url
 
   has_many :tasks
   has_many :books
@@ -59,12 +60,13 @@ class User < ActiveRecord::Base
     data = access_token.extra['raw_info']
     info = access_token.info
 
-    if user = User.where(:login => data['login']).first
+    if user = User.where(:login => info['nickname']).first
       user
     else # Create a user with a stub password.
       User.create!(:login => info['nickname'],
                    :email => info['email'],
                    :image => info['image'],
+                   :github_url => info['urls']['GitHub'],
                    :password => Devise.friendly_token[0,20])
     end
   end
