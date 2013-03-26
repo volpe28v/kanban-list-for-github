@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :name, :bg_img, :layout, :pomo
-  attr_accessible :login, :image, :location, :github_url
+  attr_accessible :login, :image, :location, :github_url, :token
 
   has_many :tasks
   has_many :books
@@ -65,6 +65,7 @@ class User < ActiveRecord::Base
     else # Create a user with a stub password.
       User.create!(:login => info['nickname'],
                    :email => info['email'],
+                   :token => access_token['credentials']['token'],
                    :image => info['image'],
                    :github_url => info['urls']['GitHub'],
                    :password => Devise.friendly_token[0,20])
