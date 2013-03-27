@@ -10,9 +10,9 @@ Devise.setup do |config|
   require "omniauth-github"
   case Rails.env
   when 'development' || 'test'
-    config.omniauth :github, ENV['GITHUB_APP_ID'], ENV['GITHUB_APP_SECRET'], :scope => 'user', :client_options => {:ssl => {:ca_file => ENV['CA_FILE']}}
+    config.omniauth :github, ENV['GITHUB_APP_ID'], ENV['GITHUB_APP_SECRET'], :scope => 'user repo', :client_options => {:ssl => {:ca_file => ENV['CA_FILE']}}
   when 'production'
-    config.omniauth :github, ENV['GITHUB_APP_ID'], ENV['GITHUB_APP_SECRET'], :scope => 'user'
+    config.omniauth :github, ENV['GITHUB_APP_ID'], ENV['GITHUB_APP_SECRET'], :scope => 'user repo'
   end
 
   # Configure the class responsible to send e-mails.

@@ -10,6 +10,7 @@ Todolist::Application.routes.draw do
   post "tasks/update_order"
   post "tasks/filter_or_update"
   post "tasks/silent_update"
+  get "tasks/sync_issues"
   post "tasks/send_mail"
   get 'tasks/donelist'
 

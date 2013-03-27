@@ -38,7 +38,6 @@ class TasksController < ApplicationController
     task = Task.find(params[:id])
     task.update_status(params[:status]) if params[:status] != ""
     task.msg = params[:msg]
-    task.book = task.get_book_id_in_msg_by_user(current_user)
     task.save
 
     move_id = is_moved_from_book?(task) ? task.id : 0
@@ -90,6 +89,41 @@ class TasksController < ApplicationController
                       task_counts: get_task_counts,
                       all_books: get_all_book_counts },
            :callback => 'updateSilentJson'
+  end
+
+  def sync_issues
+    @user_name = current_user.name
+    @recent_done_num = 15
+
+    # get repos
+    github_client = Octokit::Client.new(login: current_user.login, oauth_token: current_user.token)
+    repos = github_client.repositories()
+    repos.each{|r|
+      book = Book.find_or_create_by_user_id_and_repo_id(current_user.id, r.id)
+      book.name = r.name
+      book.save
+
+      # get issues
+      begin
+        issues = github_client.list_issues(current_user.login + '/' + r.name)
+        issues += github_client.list_issues(current_user.login + '/' + r.name, {state: "closed"})
+        issues.each{|i|
+          task = Task.find_or_create_by_user_id_and_issue_number(current_user.id, i.number)
+          task.msg = i.title
+          task.book_id = book.id
+          if i.state == "closed"
+            task.update_status(:done)
+          elsif task.status == nil
+            task.update_status(:todo_m)
+          end
+
+          task.save
+        }
+      rescue
+      end
+    }
+
+    render_json_for_updateBookJson(params[:filter], 15)
   end
 
   def donelist

@@ -52,5 +52,16 @@ $(document).ready(function(){
     addTodoAction();
   });
 
+  $("#sync_issues_button").click(function(){
+    ajaxLoader.start(function(){
+      $.ajax({
+        type: "GET",
+        cache: false,
+        url: "tasks/sync_issues",
+        dataType: "jsonp"
+      });
+    });
+  });
+
   filterTask("");
 });

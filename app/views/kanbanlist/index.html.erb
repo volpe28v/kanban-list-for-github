@@ -2,7 +2,7 @@
 
 <div id="wrapper">
 <div class="hero-unit">
-  <h1>かんばんりすと for Github issues</h1>
+  <h1>かんばんりすと <span style="font-size: 32px">for Github issues</span></h1>
   <p>
     <h3>かんばんりすと って？</h3>
     <ul>
@@ -24,7 +24,7 @@
   </p>
 
   <p>
-    <%= link_to "Sign in with Github", user_omniauth_authorize_path(:github), :class => "btn btn-info" %></p>
+    <%= link_to "Sign in with Github", user_omniauth_authorize_path(:github), :class => "btn btn-inverse btn-large" %></p>
   </p>
   There are <span id="user_count"><%= @all_user_count %></span> users and <span id="today_tasks"><%= @today_task_count %></span>/<span id="all_tasks"><%= @all_task_count %></span> [today/all] tasks in かんばんりすと.
 </div>
