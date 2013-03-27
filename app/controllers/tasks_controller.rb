@@ -108,7 +108,7 @@ class TasksController < ApplicationController
         issues = github_client.list_issues(current_user.login + '/' + r.name)
         issues += github_client.list_issues(current_user.login + '/' + r.name, {state: "closed"})
         issues.each{|i|
-          task = Task.find_or_create_by_user_id_and_issue_number(current_user.id, i.number)
+          task = Task.find_or_create_by_user_id_and_book_id_and_issue_number(current_user.id, book.id, i.number)
           task.msg = i.title
           task.book_id = book.id
           if i.state == "closed"
@@ -118,6 +118,7 @@ class TasksController < ApplicationController
           end
 
           task.save
+#          logger.info "#{r.name} #{i.state} #{i.number} #{i.title}"
         }
       rescue
       end
