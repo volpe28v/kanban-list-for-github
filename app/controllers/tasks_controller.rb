@@ -95,36 +95,43 @@ class TasksController < ApplicationController
     @user_name = current_user.name
     @recent_done_num = 15
 
-    # get repos
     github_client = Octokit::Client.new(login: current_user.login, oauth_token: current_user.token)
-    repos = github_client.repositories()
-    repos.each{|r|
-      book = Book.find_or_create_by_user_id_and_repo_id(current_user.id, r.id)
-      book.name = r.name
-      book.save
 
-      # get issues
-      begin
-        issues = github_client.list_issues(current_user.login + '/' + r.name)
-        issues += github_client.list_issues(current_user.login + '/' + r.name, {state: "closed"})
-        issues.each{|i|
-          task = Task.find_or_create_by_user_id_and_book_id_and_issue_number(current_user.id, book.id, i.number)
-          task.msg = i.title
-          task.book_id = book.id
-          if i.state == "closed"
-            task.update_status(:done)
-          elsif task.status == nil
-            task.update_status(:todo_m)
-          end
+    if current_book then
+      sync_issue_by_repo( github_client, current_book.name, current_book.id )
+    else
+      repos = github_client.repositories()
+      repos.each{|r|
+        book = Book.find_or_create_by_user_id_and_repo_id(current_user.id, r.id)
+        book.name = r.name
+        book.save
 
-          task.save
-#          logger.info "#{r.name} #{i.state} #{i.number} #{i.title}"
-        }
-      rescue
-      end
-    }
+        sync_issue_by_repo( github_client, r.name, book.id )
+      }
+    end
 
     render_json_for_updateBookJson(params[:filter], 15)
+  end
+
+  def sync_issue_by_repo( github_client, repo_name, book_id )
+    # get issues
+    begin
+      issues = github_client.list_issues(current_user.login + '/' + repo_name)
+      issues += github_client.list_issues(current_user.login + '/' + repo_name, {state: "closed"})
+      issues.each{|i|
+        task = Task.find_or_create_by_user_id_and_book_id_and_issue_number(current_user.id, book_id, i.number)
+        task.msg = i.title
+        task.book_id = book_id
+        if i.state == "closed"
+          task.update_status(:done)
+        elsif task.status == nil
+          task.update_status(:todo_m)
+        end
+
+        task.save
+      }
+    rescue
+    end
   end
 
   def donelist
