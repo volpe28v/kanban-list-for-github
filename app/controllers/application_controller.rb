@@ -99,6 +99,7 @@ class ApplicationController < ActionController::Base
   def render_json_for_updateBookJson(filter_str = "", done_num)
     render :json => { task_list_html: get_task_list_html(filter_str, done_num),
                       book_name: get_book_name,
+                      url: current_book.github_url,
                       prefix: get_prefix,
                       task_counts: get_task_counts,
                       all_books: get_all_book_counts },

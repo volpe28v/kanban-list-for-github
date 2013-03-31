@@ -102,19 +102,7 @@ class TasksController < ApplicationController
     @recent_done_num = 15
 
     github_client = Octokit::Client.new(login: current_user.login, oauth_token: current_user.token)
-
-    if current_book then
-      sync_issue_by_repo( github_client, current_book.name, current_book.id )
-    else
-      repos = github_client.repositories()
-      repos.each{|r|
-        book = Book.find_or_create_by_user_id_and_repo_id(current_user.id, r.id)
-        book.name = r.name
-        book.save
-
-        sync_issue_by_repo( github_client, r.name, book.id )
-      }
-    end
+    sync_issue_by_repo( github_client, current_book.name, current_book.id )
 
     render_json_for_updateBookJson(params[:filter], 15)
   end
@@ -145,9 +133,11 @@ class TasksController < ApplicationController
 
     repos = github_client.repositories()
     repos.each{|r|
-      book = Book.find_or_create_by_user_id_and_repo_id(current_user.id, r.id)
-      book.name = r.name
-      book.save
+      if current_user.books.find_by_repo_id(r.id) == nil
+        current_user.books.create( repo_id: r.id,
+                                   name: r.name,
+                                   github_url: r.html_url)
+      end
     }
   end
 
