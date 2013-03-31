@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130331072807) do
+ActiveRecord::Schema.define(:version => 20130331082743) do
 
   create_table "books", :force => true do |t|
     t.string   "name"
@@ -24,15 +24,15 @@ ActiveRecord::Schema.define(:version => 20130331072807) do
 
   create_table "tasks", :force => true do |t|
     t.string   "name"
-    t.string   "msg"
+    t.text     "msg",          :limit => 1000
     t.date     "doing_at"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.integer  "status"
-    t.integer  "pomo",         :default => 0
+    t.integer  "pomo",                         :default => 0
     t.integer  "user_id"
     t.integer  "book_id"
-    t.integer  "order_no",     :default => 0
+    t.integer  "order_no",                     :default => 0
     t.integer  "issue_number"
   end
 
