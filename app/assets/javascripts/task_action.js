@@ -42,7 +42,8 @@ KanbanList.taskAction = (function(){
     var to_status = "done";
     var id = move_id.slice(4);
     var msg = $("#ms_" + id + "_edit" ).val();
-    $("#fixed_msg_" + id ).html(display_filter(msg));
+    var msg_title = msg.split("\n")[0];
+    $("#fixed_msg_" + id ).html(display_filter(msg_title));
 
     $("#edit_link_ms_" + id ).css("display","none");
     $("#edit_form_ms_" + id ).css("display","none");
@@ -108,9 +109,10 @@ KanbanList.taskAction = (function(){
        ,$to = $('#msg_' + id );
     var msg = sanitize($from.val());
     msg = msg.replace(/'/g,"\"");
+    var msg_title = msg.split("\n")[0];
 
     $from.val(msg);
-    $to.html(display_filter(msg));
+    $to.html(display_filter(msg_title));
 
     var status = $("#id_" + id).parent().get(0).id;
     //TODO: グローバルのメソッドを呼んでいるので修正する
@@ -119,11 +121,12 @@ KanbanList.taskAction = (function(){
 
   var edit_before_msg = {};
   function realize_task(id, msg_array){
+    var msg_title = msg_array[0];
     var msg = msg_array.join('\n');
 
     $('#ms_' + id + '_edit').val(msg);
-    $('#msg_' + id ).html(display_filter(msg));
-    $('#fixed_msg_' + id ).html(display_filter(msg));
+    $('#msg_' + id ).html(display_filter(msg_title));
+    $('#fixed_msg_' + id ).html(display_filter(msg_title));
 
     $('#ms_' + id + '_edit').maxlength({
       'feedback' : '.task-chars-left'
