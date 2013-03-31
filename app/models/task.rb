@@ -134,4 +134,46 @@ class Task < ActiveRecord::Base
       ""
     end
   end
+
+  def is_done?
+    self.status == @@status_table[:done]
+  end
+
+  def create_github
+    task = self
+    repo = "#{task.user.login}/#{task.book.name}"
+
+    msg_array = task.msg.split("\n")
+    title = msg_array[0]
+    body = msg_array.size >= 2 ? msg_array[1..-1].join("\n") : ""
+
+    github_client = Octokit::Client.new(login: task.user.login, oauth_token: task.user.token)
+    new_issue = github_client.create_issue(repo, title, body)
+    task.update_attribute(:issue_number, new_issue.number)
+
+  end
+
+  def update_github
+    task = self
+    repo = "#{task.user.login}/#{task.book.name}"
+
+    msg_array = task.msg.split("\n")
+    title = msg_array[0]
+    body = msg_array.size >= 2 ? msg_array[1..-1].join("\n") : ""
+
+    github_client = Octokit::Client.new(login: task.user.login, oauth_token: task.user.token)
+    github_client.update_issue(repo, task.issue_number.to_s, title, body)
+
+    if task.is_done?
+      github_client.close_issue(repo, task.issue_number.to_s)
+    end
+  end
+
+  def close_github
+    task = self
+    repo = "#{task.user.login}/#{task.book.name}"
+
+    github_client = Octokit::Client.new(login: task.user.login, oauth_token: task.user.token)
+    github_client.close_issue(repo, task.issue_number.to_s)
+  end
 end

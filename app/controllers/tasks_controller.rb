@@ -22,6 +22,7 @@ class TasksController < ApplicationController
     task.update_status(:todo_m)
     task.book = current_book
     task.save
+    task.create_github
 
     move_id = is_moved_from_book?(task) ? task.id : 0 #delete
     task_html = render_to_string :partial => 'task', :locals => {:task => task, :display => "none" }
@@ -39,6 +40,7 @@ class TasksController < ApplicationController
     task.update_status(params[:status]) if params[:status] != ""
     task.msg = params[:msg]
     task.save
+    task.update_github
 
     move_id = is_moved_from_book?(task) ? task.id : 0  #delete
 
@@ -52,6 +54,7 @@ class TasksController < ApplicationController
   def destroy
     task = Task.find(params[:id])
     task.delete
+    task.close_github
 
     render :json => { task_counts: get_task_counts,
                       move_task_id: 0,
