@@ -20,10 +20,10 @@ class TasksController < ApplicationController
                     :name => current_user.name,
                     :user => current_user)
     task.update_status(:todo_m)
-    task.book = task.get_book_id_in_msg_by_user(current_user)
+    task.book = current_book
     task.save
 
-    move_id = is_moved_from_book?(task) ? task.id : 0
+    move_id = is_moved_from_book?(task) ? task.id : 0 #delete
     task_html = render_to_string :partial => 'task', :locals => {:task => task, :display => "none" }
 
     render :json => { id: task.id,
@@ -40,7 +40,7 @@ class TasksController < ApplicationController
     task.msg = params[:msg]
     task.save
 
-    move_id = is_moved_from_book?(task) ? task.id : 0
+    move_id = is_moved_from_book?(task) ? task.id : 0  #delete
 
     do_hooks(task)
     render :json => { task_counts: get_task_counts,

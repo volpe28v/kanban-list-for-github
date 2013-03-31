@@ -13,6 +13,7 @@ $(document).ready(function(){
   }
 
   function addTodoAjax(msg) {
+    if ( msg == "" ){ return; }
     $.ajax({
       type: "POST",
       cache: false,
@@ -30,7 +31,7 @@ $(document).ready(function(){
   }
 
   function addTodoAction(){
-    addTodoWithPrefix($('#prefix').val() , sanitize($('#add_todo_form_msg').val()));
+    addTodoAjax(sanitize($('#add_todo_form_msg').val()));
     $('#add_todo_form_msg').val('');
     $('#add_todo_form_msg').focus();
 

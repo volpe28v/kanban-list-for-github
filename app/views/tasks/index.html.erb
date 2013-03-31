@@ -3,17 +3,20 @@
   <div id="send_mail_result" class="alert alert-success" style="display:none"></div>
 
   <div class="row-fluid">
+    <div class="span1">
+      <%= link_to( image_tag( current_user.image, :class => "github_img"), current_user.github_url) %>
+    </div>
     <div class="span8">
-  <form method="post" id="add_todo_form" class="form-inline">
-    <span class="label label-info">Book: <span id="book_name_label"></span></span> <span class="task-chars-left-add-form"></span></br>
-    <input type="text" id="prefix" class="span2" name="prefix" value="" placeholder="Book Name" maxlength="50"/>
-    <input type="text" id="add_todo_form_msg" class="span6" value="" placeholder="Task Name" maxlength="200"/>
-    <button class="btn btn-success" id="add_todo_button"/><i class="icon-plus icon-white"></i></button>
-    <button class="btn btn-inverse" id="sync_issues_button"/><i class="icon-refresh icon-white"></i> Sync Issues</button>
-  </form>
+      <div class="login-and-repo"><%= link_to( current_user.login, current_user.github_url ) %> / <span id="book_name_label"></span></div>
+      <form method="post" id="add_todo_form" class="form-inline">
+        <input type="text" id="prefix" class="span2" name="prefix" value="" placeholder="Book Name" maxlength="50" style="display:none"/>
+        <input type="text" id="add_todo_form_msg" class="span6" value="" placeholder="Issue Title" maxlength="200"/>
+        <button class="btn" id="add_todo_button"/><i class="icon-plus"></i>Add Issue</button>
+        <button class="btn btn-inverse" id="sync_issues_button"/><i class="icon-refresh icon-white"></i> Sync Issues</button>
+      </form>
     </div>
 
-    <div class="span4">
+    <div class="span3">
       <div id="p_timer_body" class="well" style="display:none">
         <center>
           <button id="p_start" class="btn btn-mini btn-info">Start</button>
