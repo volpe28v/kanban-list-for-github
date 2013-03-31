@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_all_book_counts
-    [all_count_info] + books_count_info_array
+    books_count_info_array
   end
 
   def all_count_info

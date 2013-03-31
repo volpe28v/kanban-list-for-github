@@ -78,6 +78,12 @@ class TasksController < ApplicationController
 
   def filter_or_update
     set_layout(params[:layout])
+    if current_user.books.size == 0
+      sync_repos
+      current_user.reload
+      session[:book_id] = current_user.books.first
+    end
+
     render_json_for_updateBookJson(params[:filter], 15)
   end
 
@@ -132,6 +138,17 @@ class TasksController < ApplicationController
       }
     rescue
     end
+  end
+
+  def sync_repos
+    github_client = Octokit::Client.new(login: current_user.login, oauth_token: current_user.token)
+
+    repos = github_client.repositories()
+    repos.each{|r|
+      book = Book.find_or_create_by_user_id_and_repo_id(current_user.id, r.id)
+      book.name = r.name
+      book.save
+    }
   end
 
   def donelist
