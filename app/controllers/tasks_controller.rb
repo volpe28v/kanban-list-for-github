@@ -119,6 +119,7 @@ class TasksController < ApplicationController
         task = Task.find_or_create_by_user_id_and_book_id_and_issue_number(current_user.id, book_id, i.number)
         task.msg = i.title + "\n" + i.body
         task.book_id = book_id
+        task.github_url = i.html_url
         if i.state == "closed"
           task.update_status(:done)
         elsif task.status == nil
