@@ -113,8 +113,8 @@ class TasksController < ApplicationController
   def sync_issue_by_repo( github_client, repo_name, book_id )
     # get issues
     begin
-      issues = github_client.list_issues(current_user.login + '/' + repo_name)
-      issues += github_client.list_issues(current_user.login + '/' + repo_name, {state: "closed"})
+      issues = github_client.list_issues(repo_name)
+      issues += github_client.list_issues(repo_name, {state: "closed"})
       issues.each{|i|
         task = Task.find_or_create_by_user_id_and_book_id_and_issue_number(current_user.id, book_id, i.number)
         task.msg = i.title + "\n" + i.body
@@ -139,7 +139,7 @@ class TasksController < ApplicationController
     repos.each{|r|
       if current_user.books.find_by_repo_id(r.id) == nil
         current_user.books.create( repo_id: r.id,
-                                   name: r.name,
+                                   name: r.full_name,
                                    github_url: r.html_url)
       end
     }

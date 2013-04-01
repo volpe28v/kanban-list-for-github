@@ -4,7 +4,7 @@ body, input, select, textarea, button {
 }
 
 .login-and-repo {
-  letter-spacing: -1px;
+  letter-spacing: 0px;
   font-size: 22px;
   font-weight: normal;
   line-height: 28px;
