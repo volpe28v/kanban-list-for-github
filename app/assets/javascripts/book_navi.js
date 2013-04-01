@@ -41,18 +41,14 @@ KanbanList.bookNavi = (function(){
     });
   }
 
-  function setAction(book_infos){
+  function setAction(){
     initNewBookAction();
     initRemoveBookAction();
 
-    for(var i = 0; i < book_infos.length; i++ ){
-      $('#book_list_' + book_infos[i].id + ' a').click(function(){
-        var book_id = book_infos[i].id;
-        return function(){
-          selectBookAction( book_id );
-        }
-      }());
-    }
+    $('.book_item a').click(function(){
+      var book_id = $(this).data('book_id');
+      selectBookAction( book_id );
+    });
   }
 
   function initNewBookAction(){
@@ -122,8 +118,8 @@ KanbanList.bookNavi = (function(){
     var lists = '';
     for(var i = 0; i < book_infos.length; i++ ){
       var active_todo_counts = book_infos[i].todo_h + book_infos[i].todo_m + book_infos[i].todo_l + book_infos[i].doing + book_infos[i].waiting;
-      lists += '<li id="book_list_' + book_infos[i].id + '">' +
-                 '<a href="#">' + book_infos[i].name +
+      lists += '<li class="book_item">' +
+                 '<a href="#" data-book_id="' + book_infos[i].id + '">' + book_infos[i].name +
                    '<table style="float:right" class="book-counts">' +
                      '<tr>' +
                        '<td><div class="counts-active" >' + active_todo_counts   + '</div></td>' +
@@ -142,7 +138,7 @@ KanbanList.bookNavi = (function(){
     $('#book_list').empty();
     $('#book_list').append(header + lists);
 
-    setAction(book_infos);
+    setAction();
   }
 
   return {
