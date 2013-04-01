@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
     AppConfig[:base_bg_path] + (self.bg_img == nil ? AppConfig[:default_bg_image] : self.bg_img)
   end
 
+  def github_name
+    self.name != "" ? self.name : self.login
+  end
+
   def self.add_user(name)
     User.find_or_create_by_name(:name => name,
                 :bg_img => AppConfig[:default_bg_image],

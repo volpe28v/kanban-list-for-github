@@ -7,7 +7,7 @@
       <%= link_to( image_tag( current_user.image, :class => "github_img"), current_user.github_url) %>
     </div>
     <div class="span8">
-      <div class="login-and-repo"><%= link_to( current_user.name, current_user.github_url, target: "_blank" ) %> - <span id="book_name_label"></span></div>
+      <div class="login-and-repo"><%= link_to( current_user.github_name, current_user.github_url, target: "_blank" ) %> - <span id="book_name_label"></span></div>
       <form method="post" id="add_todo_form" class="form-inline">
         <input type="text" id="prefix" class="span2" name="prefix" value="" placeholder="Book Name" maxlength="50" style="display:none"/>
         <input type="text" id="add_todo_form_msg" class="span6" value="" placeholder="Issue Title" maxlength="1000"/>
