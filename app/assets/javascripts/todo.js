@@ -103,16 +103,17 @@ function addTodoResponse(add_task_info){
   $(id_str).fadeIn();
 }
 
-function filterTask(filter_str){
+function filterTask(filter){
   autoLoadingTimer.stop();
-  var request_str = "filter=" + filter_str;
 
   ajaxLoader.start(function(){
     $.ajax({
       type: "POST",
       cache: false,
       url: "tasks/filter_or_update",
-      data: request_str,
+      data: {
+        filter: filter
+      },
       dataType: "jsonp"
     });
   });
