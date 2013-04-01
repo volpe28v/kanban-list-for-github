@@ -136,12 +136,8 @@ class TasksController < ApplicationController
     github_client = Octokit::Client.new(login: current_user.login, oauth_token: current_user.token)
 
     repos = github_client.repositories()
-    repos.each{|r|
-      if current_user.books.find_by_repo_id(r.id) == nil
-        current_user.books.create( repo_id: r.id,
-                                   name: r.full_name,
-                                   github_url: r.html_url)
-      end
+    repos.each {|r|
+      current_user.books.where(repo_id: r.id, name: r.full_name, github_url: r.html_url).first_or_create!
     }
   end
 
