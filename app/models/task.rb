@@ -141,7 +141,7 @@ class Task < ActiveRecord::Base
 
   def create_github
     task = self
-    repo = "#{task.user.login}/#{task.book.name}"
+    repo = task.book.name
 
     msg_array = task.msg.split("\n")
     title = msg_array[0]
@@ -156,7 +156,7 @@ class Task < ActiveRecord::Base
 
   def update_github
     task = self
-    repo = "#{task.user.login}/#{task.book.name}"
+    repo = task.book.name
 
     msg_array = task.msg.split("\n")
     title = msg_array[0]
@@ -172,7 +172,7 @@ class Task < ActiveRecord::Base
 
   def close_github
     task = self
-    repo = "#{task.user.login}/#{task.book.name}"
+    repo = task.book.name
 
     github_client = Octokit::Client.new(login: task.user.login, oauth_token: task.user.token)
     github_client.close_issue(repo, task.issue_number.to_s)
