@@ -34,9 +34,9 @@ KanbanList.ajaxLoader = (function(){
     var msg_no = Math.floor(Math.random() * LoadingMsg.length);
     $('#loading_msg').html(LoadingMsg[msg_no]);
 
-    $('#task_list').fadeOut('fast',function(){
+    $('#task_list').fadeOut('fast', function(){
       $('#loader').fadeIn('fast', function(){
-        if (callback != undefined){
+        if (callback) {
           callback();
         }
       });
