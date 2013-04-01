@@ -124,7 +124,7 @@ function updateBookJson(book_info){
   $('#task_list').html(book_info.task_list_html);
   ajaxLoader.stop();
 
-  var repo_link = $('<a>').attr('href', book_info.url).text(book_info.book_name)
+  var repo_link = $('<a>').attr('href', book_info.url).attr('target',"_blank").text(book_info.book_name)
   $('#book_name_label').empty();
   $('#book_name_label').append(repo_link);
 
