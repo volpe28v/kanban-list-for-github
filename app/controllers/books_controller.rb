@@ -34,9 +34,7 @@ class BooksController < ApplicationController
 
       current_book.tasks.destroy_all
       current_book.destroy
-      session[:book_id] = 0
-    else
-      session[:book_id] = 0
+      session[:book_id] = current_user.books.first
     end
     render_current_book( filter_str )
   end
