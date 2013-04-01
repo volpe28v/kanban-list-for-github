@@ -149,7 +149,8 @@ class Task < ActiveRecord::Base
 
     github_client = Octokit::Client.new(login: task.user.login, oauth_token: task.user.token)
     new_issue = github_client.create_issue(repo, title, body)
-    task.update_attribute(:issue_number, new_issue.number)
+    task.update_attributes({issue_number: new_issue.number,
+                            github_url: new_issue.html_url})
 
   end
 
