@@ -64,6 +64,7 @@ class User < ActiveRecord::Base
       user
     else # Create a user with a stub password.
       User.create!(:login => info['nickname'],
+                   :name => info['name'],
                    :email => info['email'],
                    :token => access_token['credentials']['token'],
                    :image => info['image'],
