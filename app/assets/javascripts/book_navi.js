@@ -143,7 +143,7 @@ KanbanList.bookNavi = (function(){
 
     var lists = '';
 
-    lists += '<input id="search-books" class="search-query span3" placeholder="Search..."/>';
+    lists += '<li><a><input id="search-books" class="search-query span3" placeholder="Search..."/></a></li>';
 
     for(var i = 0; i < book_infos.length; i++ ){
       var active_todo_counts = book_infos[i].todo_h + book_infos[i].todo_m + book_infos[i].todo_l + book_infos[i].doing + book_infos[i].waiting;
