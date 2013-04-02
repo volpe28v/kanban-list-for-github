@@ -84,8 +84,8 @@ class TasksController < ApplicationController
     if current_user.books.size == 0
       sync_repos
       current_user.reload
-      session[:book_id] = current_user.books.first
     end
+    session[:book_id] = current_user.books.first.id if !current_book
 
     render_json_for_updateBookJson(params[:filter], 15)
   end
