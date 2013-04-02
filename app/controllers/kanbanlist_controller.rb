@@ -1,4 +1,3 @@
-require 'task'
 class KanbanlistController < ApplicationController
   skip_before_filter :authenticate_user!
 
