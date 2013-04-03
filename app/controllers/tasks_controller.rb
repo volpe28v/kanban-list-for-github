@@ -132,19 +132,6 @@ class TasksController < ApplicationController
     end
   end
 
-  def sync_repos
-    github_client = Octokit::Client.new(login: current_user.login, oauth_token: current_user.token)
-
-    max_page = 10
-    (1..max_page).each do |page|
-      repos = github_client.repositories(nil, page: page)
-      repos.each {|r|
-        current_user.books.where(repo_id: r.id, name: r.full_name, github_url: r.html_url).first_or_create!
-      }
-      break if repos.empty?
-    end
-  end
-
   def donelist
     @tasks = current_tasks.done
     if params[:year].blank? == false

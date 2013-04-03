@@ -39,6 +39,11 @@ class BooksController < ApplicationController
     render_current_book( filter_str )
   end
 
+  def sync
+    sync_repos
+    render_current_book()
+  end
+
   private
   def render_current_book(filter_str = "")
     render_json_for_updateBookJson(filter_str, 15)
