@@ -13,6 +13,7 @@ Todolist::Application.routes.draw do
   get "tasks/sync_issues"
   post "tasks/send_mail"
   get 'tasks/donelist'
+  get 'books/sync'
 
   get "dashboard/index"
   resources :books

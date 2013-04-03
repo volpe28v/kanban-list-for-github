@@ -52,12 +52,15 @@ KanbanList.bookNavi = (function(){
   }
 
   function initNewBookAction(){
-    $('#new_book').click(function(){
-      $('#book_in').modal('show');
-      setTimeout(function(){
-        $('#book_name').val('');
-        $('#book_name').focus();
-      },500);
+    $('#sync_repos').click(function(){
+      ajaxLoader.start(function(){
+        $.ajax({
+          type: "GET",
+          cache: false,
+          url: "books/sync",
+          dataType: "jsonp"
+        });
+      });
     });
   }
 
@@ -137,8 +140,8 @@ KanbanList.bookNavi = (function(){
 
   function updateByJson( book_infos ){
     if ( book_infos == null ){ return; }
-    var header = '<li><a id="new_book" href="#"><i class="icon-plus"></i> New Book</a></li>' +
-               '<li><a id="remove_book" href="#"><i class="icon-trash"></i> Remove Current Book</a></li>' +
+    var header = '<li><a id="sync_repos" href="#"><i class="icon-refresh"></i> Sync Repositories</a></li>' +
+               '<li><a id="remove_book" href="#"><i class="icon-trash"></i> Remove Current Repository</a></li>' +
                '<li class="divider"></li>';
 
     var lists = '';
