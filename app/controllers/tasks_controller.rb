@@ -62,6 +62,16 @@ class TasksController < ApplicationController
            :callback => 'updateTaskJson'
   end
 
+  def sync_issues
+    @user_name = current_user.name
+    @recent_done_num = 15
+
+    github_client = Octokit::Client.new(login: current_user.login, oauth_token: current_user.token)
+    sync_issue_by_repo( github_client, current_book.name, current_book.id )
+
+    render_json_for_updateBookJson(params[:filter], 15)
+  end
+
   def update_order
     if params[:id] == nil
       render :text => "update_order noop"

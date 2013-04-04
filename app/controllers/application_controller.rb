@@ -125,16 +125,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def sync_issues
-    @user_name = current_user.name
-    @recent_done_num = 15
-
-    github_client = Octokit::Client.new(login: current_user.login, oauth_token: current_user.token)
-    sync_issue_by_repo( github_client, current_book.name, current_book.id )
-
-    render_json_for_updateBookJson(params[:filter], 15)
-  end
-
   def sync_issue_by_repo( github_client, repo_name, book_id )
     # get issues
     begin
@@ -156,7 +146,6 @@ class ApplicationController < ActionController::Base
     rescue
     end
   end
-
 
 end
 
