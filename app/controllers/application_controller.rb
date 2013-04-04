@@ -124,5 +124,39 @@ class ApplicationController < ActionController::Base
       break if repos.empty?
     end
   end
+
+  def sync_issues
+    @user_name = current_user.name
+    @recent_done_num = 15
+
+    github_client = Octokit::Client.new(login: current_user.login, oauth_token: current_user.token)
+    sync_issue_by_repo( github_client, current_book.name, current_book.id )
+
+    render_json_for_updateBookJson(params[:filter], 15)
+  end
+
+  def sync_issue_by_repo( github_client, repo_name, book_id )
+    # get issues
+    begin
+      issues = github_client.list_issues(repo_name)
+      issues += github_client.list_issues(repo_name, {state: "closed"})
+      issues.each{|i|
+        task = Task.find_or_create_by_user_id_and_book_id_and_issue_number(current_user.id, book_id, i.number)
+        task.msg = i.title + "\n" + i.body
+        task.book_id = book_id
+        task.github_url = i.html_url
+        if i.state == "closed"
+          task.update_status(:done)
+        elsif task.status == nil
+          task.update_status(:todo_m)
+        end
+
+        task.save
+      }
+    rescue
+    end
+  end
+
+
 end
 
