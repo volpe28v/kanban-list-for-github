@@ -21,6 +21,11 @@ class BooksController < ApplicationController
 
   def show
     session[:book_id] = params[:id]
+
+    if current_book.tasks.size == 0
+      sync_issues
+    end
+
     filter_str = params[:filter]
     render_current_book( filter_str )
   end
