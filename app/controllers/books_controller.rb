@@ -23,7 +23,8 @@ class BooksController < ApplicationController
     session[:book_id] = params[:id]
 
     if current_book.tasks.size == 0
-      sync_issues
+      github_client = Octokit::Client.new(login: current_user.login, oauth_token: current_user.token)
+      sync_issue_by_repo( github_client, current_book.name, current_book.id )
     end
 
     filter_str = params[:filter]
