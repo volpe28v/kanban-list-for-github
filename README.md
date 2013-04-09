@@ -15,7 +15,15 @@ $ rake db:migrate
 $ rails s
 ```
 
+# 仕様(今のところ)
 
+* 初期ログイン時に全リポジトリ(issueは含まない)を同期
+* 最初にリポジトリを表示するタイミングで issue を同期
+* issue に対する操作は随時同期(追加、編集、削除、Done)
+* タスクの一行目がタイトル、それ以降は本文として issue に保存する
+* 「Sync Issues」ボタンで任意のタイミングで issue を同期
+* 「Sync Repositories」で任意のタイミングで Repository を同期(増えたものは追加される)
+ 
 ## License
 (The MIT License)
 
