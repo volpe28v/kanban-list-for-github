@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
 
   def self.by_name(name)
     user = nil
-    (user = where(:name => name)).first != nil ? ser.first : nil
+    (user = where(:name => name)).first != nil ? user.first : nil
   end
 
   def self.exist?( name )
