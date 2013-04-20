@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   attr_accessible :login, :image, :location, :github_url, :token
 
   has_many :tasks
-  has_many :books
+  has_and_belongs_to_many :books
 
   scope :all_user, order('name')
 
@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   end
 
   def github_name
-    self.name != "" ? self.name : self.login
+    self.name != nil ? self.name : self.login
   end
 
   def self.add_user(name)
@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
 
   def self.by_name(name)
     user = nil
-    (user = where(:name => name)).first != nil ? user.first : nil
+    (user = where(:name => name)).first != nil ? ser.first : nil
   end
 
   def self.exist?( name )
@@ -64,7 +64,9 @@ class User < ActiveRecord::Base
     data = access_token.extra['raw_info']
     info = access_token.info
 
-    if user = User.where(:login => info['nickname']).first
+    # 大文字を含むユーザ名の場合、初回登録時は何故か nickname が小文字で来るが、
+    # ログイン時はそのままなので一旦小文字にして比較する
+    if user = User.where(:login => info['nickname'].downcase).first
       user
     else # Create a user with a stub password.
       User.create!(:login => info['nickname'],

@@ -119,7 +119,8 @@ class ApplicationController < ActionController::Base
     (1..max_page).each do |page|
       repos = github_client.repositories(nil, page: page)
       repos.each {|r|
-        current_user.books.where(repo_id: r.id, name: r.full_name, github_url: r.html_url).first_or_create!
+        new_book = Book.where(repo_id: r.id, name: r.full_name, github_url: r.html_url).first_or_create!
+        current_user.books << new_book unless current_user.books.exists?(repo_id: r.id)
       }
       break if repos.empty?
     end
