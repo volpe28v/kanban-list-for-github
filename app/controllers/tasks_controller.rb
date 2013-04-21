@@ -19,6 +19,7 @@ class TasksController < ApplicationController
     task = Task.new(:msg => params[:msg])
     task.update_status(:todo_m)
     task.book = current_book
+    task.comments = 0
     task.save
     task.create_github_by_user(current_user)
 
