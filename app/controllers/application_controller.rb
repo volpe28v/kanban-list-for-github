@@ -119,11 +119,33 @@ class ApplicationController < ActionController::Base
     (1..max_page).each do |page|
       repos = github_client.repositories(nil, page: page)
       repos.each {|r|
-        new_book = Book.where(repo_id: r.id, name: r.full_name, github_url: r.html_url).first_or_create!
+        new_book = Book.where(repo_id: r.id).first
+        if new_book == nil
+          new_book = Book.create!(repo_id: r.id, name: r.full_name, github_url: r.html_url)
+
+          #TODO: issue に対する hook の実現性は確認できたが、全てのリポジトリにここで hook を
+          #      登録するかどうかについては検討する必要がありそう
+          #create_hook( github_client, new_book.name )
+        end
         current_user.books << new_book unless current_user.books.exists?(repo_id: r.id)
       }
       break if repos.empty?
     end
+  end
+
+  def create_hook( client, book_name )
+    client.create_hook(
+      book_name,
+      'web',
+      {
+        url: 'http://kanban-list-for-github.herokuapp.com/webhook/github',
+        content_type: 'json',
+      },
+      {
+        events: ['issues','issue_comment']
+        active: true
+      }
+    )
   end
 
   def sync_issue_by_repo( github_client, repo_name, book_id )
@@ -132,21 +154,21 @@ class ApplicationController < ActionController::Base
       issues = github_client.list_issues(repo_name)
       issues += github_client.list_issues(repo_name, {state: "closed"})
       issues.each{|i|
-        task = Task.find_or_create_by_user_id_and_book_id_and_issue_number(current_user.id, book_id, i.number)
+        task = Task.find_or_create_by_book_id_and_issue_number(book_id, i.number)
         task.msg = i.title + "\n" + i.body
         task.book_id = book_id
         task.github_url = i.html_url
         if i.state == "closed"
           task.update_status(:done)
-        elsif task.status == nil
-          task.update_status(:todo_m)
+        elsif i.state == "open"
+          if task.status_sym == :done
+            task.update_status(:todo_m)
+          end
         end
-
         task.save
       }
     rescue
     end
   end
-
 end
 
