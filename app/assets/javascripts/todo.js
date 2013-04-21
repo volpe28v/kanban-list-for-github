@@ -11,7 +11,6 @@ var touchEvent = KanbanList.touchEvent;
 var backgroundImage = KanbanList.backgroundImage;
 var bookNavi = KanbanList.bookNavi;
 var sendMail = KanbanList.sendMail;
-var todayMarker = KanbanList.todayMarker;
 var draggableTask = KanbanList.draggableTask;
 var filterNavi = KanbanList.filterNavi;
 
@@ -20,14 +19,11 @@ var last_task_list_html = "";
 
 function initForTaskList(){
   draggableTask.startAll();
-  todayMarker.markAll();
 }
 
 function sendCurrentTodo(id, status, msg) {
   $("#edit_link_time_" + id ).html(utility.getTodayStr());
   $("#fixed_time_" + id ).html(utility.getTodayStr());
-
-  todayMarker.markById( id );
 
   var request_str = "status=" + status + "&msg=" + sanitize(msg);
   $.ajax({
@@ -87,7 +83,6 @@ function addTodoResponse(add_task_info){
 
   $('#todo_m').prepend(add_task_info.li_html);
 
-  todayMarker.markById(add_task_info.id);
   updateCountsJson(add_task_info.task_counts);
   bookNavi.updateByJson( add_task_info.all_books );
 
