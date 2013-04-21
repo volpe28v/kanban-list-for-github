@@ -19,6 +19,10 @@ class WebhookController < ApplicationController
     task.book_id = book.id
     task.github_url = issue['html_url']
     task.comments = issue['comments']
+    if issue['assignee']
+      task.name = issue['assignee']['login']
+      task.assignee_url = issue['assignee']['avatar_url']
+    end
     if issue['state'] == "closed"
       task.update_status(:done)
     elsif issue['state'] == "open"
