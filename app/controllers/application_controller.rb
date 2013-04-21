@@ -149,7 +149,7 @@ class ApplicationController < ActionController::Base
       issues = github_client.list_issues(repo_name)
       issues += github_client.list_issues(repo_name, {state: "closed"})
       issues.each{|i|
-        task = Task.find_or_create_by_user_id_and_book_id_and_issue_number(current_user.id, book_id, i.number)
+        task = Task.find_or_create_by_book_id_and_issue_number(book_id, i.number)
         task.msg = i.title + "\n" + i.body
         task.book_id = book_id
         task.github_url = i.html_url
