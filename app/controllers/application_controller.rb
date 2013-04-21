@@ -155,8 +155,10 @@ class ApplicationController < ActionController::Base
         task.github_url = i.html_url
         if i.state == "closed"
           task.update_status(:done)
-        elsif task.status == nil
-          task.update_status(:todo_m)
+        elsif i.state == "open"
+          if task.status_sym == :done
+            task.update_status(:todo_m)
+          else
         end
 
         task.save
@@ -170,10 +172,12 @@ class ApplicationController < ActionController::Base
     task.msg = issue.title + "\n" + issue.body
     task.book_id = book.id
     task.github_url = issue.html_url
-    if issue.state == "closed"
+    if i.state == "closed"
       task.update_status(:done)
-    elsif task.status == nil
-      task.update_status(:todo_m)
+    elsif i.state == "open"
+      if task.status_sym == :done
+        task.update_status(:todo_m)
+      else
     end
 
     task.save
