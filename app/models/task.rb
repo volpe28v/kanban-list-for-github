@@ -141,7 +141,7 @@ class Task < ActiveRecord::Base
     self.status == @@status_table[:done]
   end
 
-  def create_github
+  def create_github_by_user(user)
     task = self
     repo = task.book.name
 
@@ -149,14 +149,14 @@ class Task < ActiveRecord::Base
     title = msg_array[0]
     body = msg_array.size >= 2 ? msg_array[1..-1].join("\n") : ""
 
-    github_client = Octokit::Client.new(login: task.user.login, oauth_token: task.user.token)
+    github_client = Octokit::Client.new(login: user.login, oauth_token: user.token)
     new_issue = github_client.create_issue(repo, title, body)
     task.update_attributes({issue_number: new_issue.number,
                             github_url: new_issue.html_url})
 
   end
 
-  def update_github
+  def update_github_by_user(user)
     task = self
     repo = task.book.name
 
@@ -164,7 +164,7 @@ class Task < ActiveRecord::Base
     title = msg_array[0]
     body = msg_array.size >= 2 ? msg_array[1..-1].join("\n") : ""
 
-    github_client = Octokit::Client.new(login: task.user.login, oauth_token: task.user.token)
+    github_client = Octokit::Client.new(login: user.login, oauth_token: user.token)
     github_client.update_issue(repo, task.issue_number.to_s, title, body)
 
     if task.is_done?
@@ -172,11 +172,11 @@ class Task < ActiveRecord::Base
     end
   end
 
-  def close_github
+  def close_github_by_user(user)
     task = self
     repo = task.book.name
 
-    github_client = Octokit::Client.new(login: task.user.login, oauth_token: task.user.token)
+    github_client = Octokit::Client.new(login: user.login, oauth_token: user.token)
     github_client.close_issue(repo, task.issue_number.to_s)
   end
 end
