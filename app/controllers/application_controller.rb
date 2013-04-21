@@ -142,7 +142,7 @@ class ApplicationController < ActionController::Base
         content_type: 'json',
       },
       {
-        events: ['issues','issue_comment']
+        events: ['issues','issue_comment'],
         active: true
       }
     )
@@ -161,7 +161,7 @@ class ApplicationController < ActionController::Base
         if i.state == "closed"
           task.update_status(:done)
         elsif i.state == "open"
-          if task.status_sym == :done
+          if task.status == nil or task.status_sym == :done
             task.update_status(:todo_m)
           end
         end
