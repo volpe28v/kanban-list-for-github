@@ -119,7 +119,24 @@ class ApplicationController < ActionController::Base
     (1..max_page).each do |page|
       repos = github_client.repositories(nil, page: page)
       repos.each {|r|
-        new_book = Book.where(repo_id: r.id, name: r.full_name, github_url: r.html_url).first_or_create!
+        new_book = Book.where(repo_id: r.id, name: r.full_name, github_url: r.html_url).first
+        if new_book == nil
+          new_book = Book.create!(repo_id: r.id, name: r.full_name, github_url: r.html_url)
+          if new_book.name == 'volpe28v/kanban-list-for-github' # for debug
+            github_client.create_hook(
+              new_book.name,
+              'web',
+              {
+                url: 'http://kanban-list-for-github.herokuapp.com/webhook/github',
+                content_type: 'json',
+              },
+              {
+                events: ['issues'],
+                active: true
+              }
+            )
+          end
+        end
         current_user.books << new_book unless current_user.books.exists?(repo_id: r.id)
       }
       break if repos.empty?
