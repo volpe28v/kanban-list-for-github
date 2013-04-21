@@ -166,6 +166,7 @@ class ApplicationController < ActionController::Base
         task.msg = i.title + "\n" + i.body
         task.book_id = book_id
         task.github_url = i.html_url
+        task.comments = i.comments
         if i.state == "closed"
           task.update_status(:done)
         elsif i.state == "open"
