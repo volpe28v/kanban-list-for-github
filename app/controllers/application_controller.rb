@@ -151,9 +151,17 @@ class ApplicationController < ActionController::Base
   def sync_issue_by_repo( github_client, repo_name, book_id )
     # get issues
     begin
-      issues = github_client.list_issues(repo_name)
-      issues += github_client.list_issues(repo_name, {state: "closed"})
-      issues.each{|i|
+      max_page = 10
+      issues = []
+      (1..max_page).each do |page|
+        new_issues = github_client.list_issues(repo_name, {state: "open", sort: "updated", direction: "desc", page: page})
+        break if new_issues.empty?
+        issues += new_issues
+      end
+
+      issues += github_client.list_issues(repo_name, {state: "closed", sort: "updated", direction: "desc"})
+
+      issues.reverse.each{|i|
         task = Task.find_or_create_by_book_id_and_issue_number(book_id, i.number)
         task.msg = i.title + "\n" + i.body
         task.book_id = book_id
