@@ -158,9 +158,8 @@ class ApplicationController < ActionController::Base
         elsif i.state == "open"
           if task.status_sym == :done
             task.update_status(:todo_m)
-          else
+          end
         end
-
         task.save
       }
     rescue
@@ -168,16 +167,16 @@ class ApplicationController < ActionController::Base
   end
 
   def update_issue( book, issue )
-    task = Task.find_or_create_by_book_id_and_issue_number(book.id, issue.number)
-    task.msg = issue.title + "\n" + issue.body
+    task = Task.find_or_create_by_book_id_and_issue_number(book.id, issue['number'])
+    task.msg = issue['title'] + "\n" + issue['body']
     task.book_id = book.id
-    task.github_url = issue.html_url
-    if i.state == "closed"
+    task.github_url = issue['html_url']
+    if issue['state'] == "closed"
       task.update_status(:done)
-    elsif i.state == "open"
+    elsif issue['state'] == "open"
       if task.status_sym == :done
         task.update_status(:todo_m)
-      else
+      end
     end
 
     task.save
