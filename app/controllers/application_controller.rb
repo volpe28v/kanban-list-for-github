@@ -119,7 +119,7 @@ class ApplicationController < ActionController::Base
     (1..max_page).each do |page|
       repos = github_client.repositories(nil, page: page)
       repos.each {|r|
-        new_book = Book.where(repo_id: r.id, name: r.full_name, github_url: r.html_url).first
+        new_book = Book.where(repo_id: r.id).first
         if new_book == nil
           new_book = Book.create!(repo_id: r.id, name: r.full_name, github_url: r.html_url)
           if new_book.name == 'volpe28v/kanban-list-for-github' # for debug
@@ -165,5 +165,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def update_issue( book, issue )
+    task = Task.find_or_create_by_book_id_and_issue_number(book.id, issue.number)
+    task.msg = issue.title + "\n" + issue.body
+    task.book_id = book.id
+    task.github_url = issue.html_url
+    if issue.state == "closed"
+      task.update_status(:done)
+    elsif task.status == nil
+      task.update_status(:todo_m)
+    end
+
+    task.save
+  end
 end
 
