@@ -122,25 +122,30 @@ class ApplicationController < ActionController::Base
         new_book = Book.where(repo_id: r.id).first
         if new_book == nil
           new_book = Book.create!(repo_id: r.id, name: r.full_name, github_url: r.html_url)
-          if new_book.name == 'volpe28v/kanban-list-for-github' # for debug
-            github_client.create_hook(
-              new_book.name,
-              'web',
-              {
-                url: 'http://kanban-list-for-github.herokuapp.com/webhook/github',
-                content_type: 'json',
-              },
-              {
-                events: ['issues'],
-                active: true
-              }
-            )
-          end
+
+          #TODO: issue に対する hook の実現性は確認できたが、全てのリポジトリにここで hook を
+          #      登録するかどうかについては検討する必要がありそう
+          #create_hook( github_client, new_book.name )
         end
         current_user.books << new_book unless current_user.books.exists?(repo_id: r.id)
       }
       break if repos.empty?
     end
+  end
+
+  def create_hook( client, book_name )
+    client.create_hook(
+      book_name,
+      'web',
+      {
+        url: 'http://kanban-list-for-github.herokuapp.com/webhook/github',
+        content_type: 'json',
+      },
+      {
+        events: ['issues','issue_comment']
+        active: true
+      }
+    )
   end
 
   def sync_issue_by_repo( github_client, repo_name, book_id )
