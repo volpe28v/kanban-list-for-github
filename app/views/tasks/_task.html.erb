@@ -14,7 +14,7 @@
           <div id="ms_<%= task.id %>_menu" style="display:inline;">
             <span class="s12">
               <%= assignee_img(task) %>
-              <span class="label"><%= task.comments %></span>
+              <%= comment_count(task) %>
               <input id="edit_button_<%= task.id %>" type="image" src="<%= image_path 'pencil.gif' %>" OnMouseOver="$(this).get(0).src = '<%= image_path 'pencil_over.gif' %>'" OnMouseOut="$(this).get(0).src = '<%= image_path 'pencil.gif' %>'" />
               <input id="delete_button_<%= task.id %>" type="image" src="<%= image_path 'cross.gif' %>" OnMouseOver="$(this).get(0).src = '<%= image_path 'cross_over.gif' %>'" OnMouseOut="$(this).get(0).src = '<%= image_path 'cross.gif' %>'" />
             </span>
@@ -40,7 +40,7 @@
           <div id="fixed_msg_<%= task.id %>" style="display:inline;"></div>
         </td><td align="right" width="58px">
           <%= assignee_img(task) %>
-          <span class="label"><%= task.comments %></span>
+          <%= comment_count(task) %>
           <input type="image" id="fixed_delete_button_<%= task.id %>" src="<%= image_path 'cross.gif' %>" OnMouseOver="$(this).get(0).src = '<%= image_path 'cross_over.gif' %>'" OnMouseOut="$(this).get(0).src = '<%= image_path 'cross.gif' %>'"/>
         </td></tr></table>
       </div>

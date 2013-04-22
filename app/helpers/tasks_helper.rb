@@ -10,4 +10,12 @@ module TasksHelper
       raw( image_tag( task.assignee_url, width: "16px", title: task.name, alt: task.name ) )
     end
   end
+
+  def comment_count(task)
+    if task.comments > 0
+      link_to raw("<span class='label label-info'>#{task.comments}</span>"), task.github_url, target: "_blank"
+    else
+      link_to raw("<span class='label'>#{task.comments}</span>"), task.github_url, target: "_blank"
+    end
+  end
 end
