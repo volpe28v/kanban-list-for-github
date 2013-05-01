@@ -14,6 +14,11 @@ class User < ActiveRecord::Base
 
   scope :all_user, order('name')
 
+  validates_presence_of :email, :if => :email_required?
+  def email_required?
+    false
+  end
+
   def bg_img_path
     AppConfig[:base_bg_path] + (self.bg_img == nil ? AppConfig[:default_bg_image] : self.bg_img)
   end
@@ -71,7 +76,7 @@ class User < ActiveRecord::Base
     else # Create a user with a stub password.
       User.create!(:login => info['nickname'],
                    :name => info['name'],
-                   :email => info['email'],
+                   :email => (info['email'].blank? ? "" : info['email']),
                    :token => access_token['credentials']['token'],
                    :image => info['image'],
                    :github_url => info['urls']['GitHub'],
