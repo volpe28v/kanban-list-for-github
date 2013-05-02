@@ -10,14 +10,14 @@ KanbanList.autoLoadingTimer = (function(){
   function loadLatestTasks(filter_str){
     if ($('#add_todo_form_msg').val() != ""){ return; };
 
-    var request_str = "filter=" + filter_str;
-
     $.ajax({
-       type: "POST",
-       cache: false,
-       url: "tasks/silent_update",
-       data: request_str,
-       dataType: "jsonp"
+      type: "POST",
+      cache: false,
+      url: "tasks/silent_update",
+      data: {
+        filter: filter_str
+      },
+      dataType: "jsonp"
     });
   }
 
