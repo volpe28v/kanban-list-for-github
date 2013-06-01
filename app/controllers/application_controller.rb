@@ -1,6 +1,6 @@
 # coding: utf-8
 class ApplicationController < ActionController::Base
-  include Jpmobile::ViewSelector
+#  include Jpmobile::ViewSelector
   protect_from_forgery
 
   before_filter :authenticate_user!
