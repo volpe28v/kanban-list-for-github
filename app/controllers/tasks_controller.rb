@@ -3,6 +3,7 @@ class TasksController < ApplicationController
   def index
     session[:book_id] = params[:book_id] if params[:book_id] != nil
 
+=begin
     if request.smart_phone?
       @user_name = current_user.name
       @counts = get_task_counts
@@ -13,6 +14,7 @@ class TasksController < ApplicationController
       @books = current_user.books
       @tasks = get_tasks( "", @recent_done_num )
     end
+=end
   end
 
   def create
