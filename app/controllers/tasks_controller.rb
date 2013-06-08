@@ -2,6 +2,7 @@
 class TasksController < ApplicationController
   def index
     session[:book_id] = params[:book_id] if params[:book_id] != nil
+    set_layout(params[:layout]) if params[:layout] != nil
 
 =begin
     if request.smart_phone?
