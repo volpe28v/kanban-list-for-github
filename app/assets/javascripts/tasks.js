@@ -12,6 +12,7 @@
 //= require pomo_timer
 //= require task_action
 //= require filter_navi
+//= require jquery.icheck
 //= require todo
 
 // dependent modules
