@@ -15,8 +15,8 @@
             <span class="s12">
               <%= assignee_img(task) %>
               <%= comment_count(task) %>
-              <input id="edit_button_<%= task.id %>" type="image" src="<%= image_path 'pencil.gif' %>" OnMouseOver="$(this).get(0).src = '<%= image_path 'pencil_over.gif' %>'" OnMouseOut="$(this).get(0).src = '<%= image_path 'pencil.gif' %>'" />
-              <input id="delete_button_<%= task.id %>" type="image" src="<%= image_path 'cross.gif' %>" OnMouseOver="$(this).get(0).src = '<%= image_path 'cross_over.gif' %>'" OnMouseOut="$(this).get(0).src = '<%= image_path 'cross.gif' %>'" />
+              <i id="edit_button_<%= task.id %>" class="icon-pencil"></i>
+              <i id="delete_button_<%= task.id %>" class="icon-trash"></i>
             </span>
           </div>
         </td></tr></table>
@@ -41,7 +41,7 @@
         </td><td align="right" width="58px">
           <%= assignee_img(task) %>
           <%= comment_count(task) %>
-          <input type="image" id="fixed_delete_button_<%= task.id %>" src="<%= image_path 'cross.gif' %>" OnMouseOver="$(this).get(0).src = '<%= image_path 'cross_over.gif' %>'" OnMouseOut="$(this).get(0).src = '<%= image_path 'cross.gif' %>'"/>
+          <i id="fixed_delete_button_<%= task.id %>" class="icon-trash"></i>
         </td></tr></table>
       </div>
     </div>
