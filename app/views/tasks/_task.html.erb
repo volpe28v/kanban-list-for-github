@@ -24,12 +24,14 @@
       <div id="edit_form_ms_<%= task.id %>" style="display:none">
         <form id="edit_form_<%= task.id %>" method="post" style="display:inline">
           <textarea id="ms_<%= task.id %>_edit" rows="8" style="font-weight:normal;padding:2px;overflow:auto; width: 98%;" onfocus="this.style.background='#ffc';" maxlength="1000"/></textarea>
-          <input type="submit" class="btn btn-primary" value="Update" style="font-size:10px" />
-          <span class="s12">
-            <a href="#" id="edit_cancel_<%= task.id %>">[cancel]</a>
-          </span>
-          <span class="task-chars-left"></span>
-        </form>
+          <div class="edit-footer">
+            <span class="task-chars-left"></span>
+            <span class="edit-control">
+              <input type="submit" id="edit_cancel_<%= task.id %>" class="btn" value="Cancel" style="font-size:10px" tabindex=3 />
+              <input type="submit" class="btn btn-primary" value="OK" style="font-size:10px" tabindex=2 />
+            </span>
+          </form>
+        </div>
       </div>
       <div id="fixed_<%= task.id %>" style="display:<%= done == false ? "none" : "block" %>">
         <table cellpadding=0 cellpadding=0 hspace=0 vspace=0 width="100%"><tr><td align="center" width="22px">
