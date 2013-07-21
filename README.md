@@ -2,6 +2,8 @@
 
 GitHubのissueを「かんばんりすと」のUIで管理したい
 
+![スクリーンショット] (https://dl.dropboxusercontent.com/u/1215986/kanban-list-for-github.png)
+
 # 仕様(今のところ)
 
 * 初期ログイン時に全リポジトリ(issueは含まない)を同期
