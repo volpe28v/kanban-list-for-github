@@ -66,5 +66,15 @@ $(document).ready(function(){
     });
   });
 
+  $("#show_detail_button").click(function(){
+    $('.msg-detail').each(function(){
+      if ($(this).css('display') == 'none'){
+        $(this).css('display','inline');
+      }else{
+        $(this).css('display','none');
+      }
+    });
+  });
+
   filterTask("");
 });

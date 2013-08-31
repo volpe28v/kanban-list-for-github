@@ -9,7 +9,8 @@
         </td><td class="taskLabel" align="left" width="30px">
           <%= link_to "##{task.issue_number}", task.github_url, target: "_blank" %>
         </td><td class="taskLabel" align="left">
-          <div id="msg_<%= task.id %>" style="display:inline; word-break:break-all;"></div>&nbsp;
+          <div id="msg_<%= task.id %>" style="display:block; word-break:break-all;"></div>
+          <span id="msg_detail_<%= task.id %>" class="msg-detail" style="display:none; word-break:break-all;"></span>
         </td><td align="right" width="78px">
           <div id="ms_<%= task.id %>_menu" style="display:inline;">
             <span class="s12">
