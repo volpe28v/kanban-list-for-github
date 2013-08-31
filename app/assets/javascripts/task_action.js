@@ -150,7 +150,7 @@ KanbanList.taskAction = (function(){
       return false;
     });
 
-    $('#edit_button_' + id ).click(function(){
+    function goToEditMode(id){
       autoLoadingTimer.stop();
       draggableTask.stopByElem($('#id_' + id ).parent());
 
@@ -160,6 +160,14 @@ KanbanList.taskAction = (function(){
       $('#ms_' + id + '_edit').get(0).focus();
 
       return false;
+    }
+
+    $('#edit_button_' + id ).click(function(){
+      return goToEditMode(id);
+    });
+
+    $('#id_' + id ).dblclick(function(){
+      return goToEditMode(id);
     });
 
     $('#edit_form_' + id ).on('keydown', function(event){
