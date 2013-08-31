@@ -190,11 +190,10 @@ KanbanList.taskAction = (function(){
     });
 
     $('#ms_' + id + '_edit').on('keyup', function(){
-      if (!edit_mode){
-        return true;
+      if (edit_mode){
+        autofit($(this).get(0));
+        return;
       }
-      autofit($(this).get(0));
-      return true;
     });
 
     $('#edit_form_' + id ).on('keydown', function(event){
