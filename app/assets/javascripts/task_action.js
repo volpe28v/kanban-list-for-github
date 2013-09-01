@@ -4,6 +4,7 @@ KanbanList.taskAction = (function(){
   var autoLoadingTimer = KanbanList.autoLoadingTimer;
   var utility = KanbanList.utility;
   var pomodoroTimer = KanbanList.pomodoroTimer;
+  var MIN_HEIGHT = 100;
 
   function display_filter(text){
     // for sanitize
@@ -110,14 +111,22 @@ KanbanList.taskAction = (function(){
     sendCurrentTodo(id, status, msg);
   }
 
-  function autofit(el){
+  function autofit(el,min_height){
     if(el.scrollHeight > el.offsetHeight){
       el.style.height = el.scrollHeight + 'px';
     } else {
-      while (el.scrollHeight - 50 < parseInt(el.style.height)){
-        el.style.height = parseInt(el.style.height) - 50 + 'px';
+      if (!isNaN(parseInt(el.style.height))){
+        while (el.scrollHeight - 50 < parseInt(el.style.height)){
+          if ( parseInt(el.style.height) < min_height){
+            el.style.height = min_height + 'px';
+            el.style.height = el.scrollHeight + 'px';
+            return;
+          }
+
+          el.style.height = parseInt(el.style.height) - 50 + 'px';
+        }
+        arguments.callee(el);
       }
-      arguments.callee(el);
     }
   }
 
@@ -175,7 +184,7 @@ KanbanList.taskAction = (function(){
 
       utility.toggleDisplay('edit_link_ms_' + id ,'edit_form_ms_' + id );
       $('#ms_' + id + '_edit').get(0).focus();
-      autofit($('#ms_' + id + '_edit').get(0));
+      autofit($('#ms_' + id + '_edit').get(0),MIN_HEIGHT);
       edit_mode = true;
 
       return false;
@@ -191,7 +200,7 @@ KanbanList.taskAction = (function(){
 
     $('#ms_' + id + '_edit').on('keyup', function(){
       if (edit_mode){
-        autofit($(this).get(0));
+        autofit($(this).get(0),MIN_HEIGHT);
         return;
       }
     });
@@ -219,6 +228,7 @@ KanbanList.taskAction = (function(){
 
       $('#ms_' + id + '_edit').val(edit_before_msg[id]);
       utility.toggleDisplay('edit_form_ms_' + id ,'edit_link_ms_' + id );
+      edit_mode = false;
       return false;
     });
   }
