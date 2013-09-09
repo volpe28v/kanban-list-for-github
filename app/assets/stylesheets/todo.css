@@ -127,9 +127,9 @@ li {
 #doing li ,#waiting li ,#doing li ,#todo_h li, #todo_m li, #todo_l li, #done li{
   margin: 0px 2px 2px 2px;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 14px;
   text-decoration:none;
-  padding: 1px;
+  padding: 3px 1px;
   background-position: center bottom;
   background-repeat:  repeat;
 }
@@ -556,11 +556,20 @@ table#table-01 td {
   background-color: #ff9;
 }
 
+.edit-footer {
+  height: 32px;
+}
+
 .task-chars-left {
-  float: right;
-  margin-right: 10px;
+  float: left;
+  margin-left: 10px;
   font-weight: bold;
   color: #777;
+}
+
+.edit-control {
+  float: right;
+  margin-right: 5px;
 }
 
 .task-chars-left-add-form {
@@ -604,14 +613,22 @@ table#table-01 td {
   background-color: white;
 }
 
+#p_timer_clock {
+  margin: 0 10px;
+}
+
 #p_min, #p_sec, #p_delim {
-  font-size: 30px;
   color: tomato;
   text-shadow: 1px 1px 2px gray;
 }
 
 #p_min {
+  font-size: 36px;
   margin-left: 10px;
+}
+
+#p_sec, #p_delim {
+  font-size: 12px;
 }
 
 #pomo_done_num {
@@ -642,4 +659,10 @@ footer span{
 
 .zero {
   color: #aaa;
+}
+
+.msg-detail {
+  font-size: 12px;
+  font-weight: normal;
+  color: #555;
 }

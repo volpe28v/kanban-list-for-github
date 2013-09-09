@@ -2,18 +2,7 @@
 
 GitHubのissueを「かんばんりすと」のUIで管理したい
 
-
-## Installation
-
-Ruby ver 2.0.0
-
-```bash
-$ git clone git@github.com:volpe28v/kanban-list-for-github.git
-$ cd kanban-list-for-github
-$ bundle
-$ rake db:migrate
-$ rails s
-```
+![スクリーンショット] (https://dl.dropboxusercontent.com/u/1215986/kanban-list-for-github.png)
 
 # 仕様(今のところ)
 

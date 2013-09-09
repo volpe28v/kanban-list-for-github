@@ -1,31 +1,33 @@
 <a href="https://github.com/volpe28v/kanban-list-for-github"><img style="position: absolute; top: 40px; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub"></a>
 
 <div id="wrapper">
-<div class="hero-unit">
-  <h1>かんばんりすと <span style="font-size: 32px">for Github issues</span></h1>
-  <p>
-    <h3>かんばんりすと って？</h3>
+  <div class="hero-unit">
+    <h1>かんばんりすと <span style="font-size: 32px">for GitHub issues</span></h1>
+    <p>
+    <h3>かんばんりすと for GitHub issues って？</h3>
     <ul>
-      <li>Web上で使える Todoリストアプリです</li>
-      <li>誰でも手軽に気持ちよくタスク管理ができたらいいなという想いで作りました</li>
+      <li>GitHub の issue をソフトウェアかんばん風に管理できるTodoリストアプリです</li>
+      <li>個人やコラボレータ間で issue の状態や優先度をもっとお手軽に管理したくて作りました</li>
     </ul>
 
     <h3>使い方</h3>
     <ul>
-      <li>操作の基本は「タスクを追加」「ドラッグ＆ドロップで状態変更」「チェックで完了」です</li>
-      <li>タッチ対応ですのでスマートフォンやタブレッド等でもご利用いただけます</li>
+      <li>お手持ちのGitHubアカウントでログインします</li>
+      <li>操作の基本は「issueを追加」「ドラッグ＆ドロップで状態変更」「チェックで完了」です</li>
+      <li>issueに対する変更は、状態(Open,Close)や内容がGitHubと同期されます</li>
     </ul>
 
     <h3>ソースコード</h3>
+    <%= link_to image_tag( image_path('Octocat.jpg') , style: "float: right;", width: "150px"), 'https://github.com/' %>
     <ul>
       <li><a href=https://github.com/volpe28v/kanban-list-for-github>https://github.com/volpe28v/kanban-list-for-github</a></li>
       <li>ご意見ご要望などあれば GitHub の issue などでお気軽に連絡ください</li>
     </ul>
-  </p>
+    </p>
 
-  <p>
+    <p>
     <%= link_to "Sign in with Github", user_omniauth_authorize_path(:github), :class => "btn btn-inverse btn-large" %></p>
-  </p>
-  There are <span id="user_count"><%= @all_user_count %></span> users and <span id="today_tasks"><%= @today_task_count %></span>/<span id="all_tasks"><%= @all_task_count %></span> [today/all] tasks in かんばんりすと.
-</div>
+    </p>
+    There are <span id="user_count"><%= @all_user_count %></span> users and <span id="today_tasks"><%= @today_task_count %></span>/<span id="all_tasks"><%= @all_task_count %></span> [today/all] tasks in かんばんりすと.
+  </div>
 </div>

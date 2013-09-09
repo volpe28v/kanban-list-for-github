@@ -4,6 +4,7 @@ KanbanList.taskAction = (function(){
   var autoLoadingTimer = KanbanList.autoLoadingTimer;
   var utility = KanbanList.utility;
   var pomodoroTimer = KanbanList.pomodoroTimer;
+  var MIN_HEIGHT = 100;
 
   function display_filter(text){
     // for sanitize
@@ -94,13 +95,16 @@ KanbanList.taskAction = (function(){
 
   function updateToDoMsg(id) {
     var $from = $('#ms_' + id + '_edit')
-       ,$to = $('#msg_' + id );
-    var msg = sanitize($from.val());
-    msg = msg.replace(/'/g,"\"");
-    var msg_title = msg.split("\n")[0];
+       ,$to = $('#msg_' + id )
+       ,$detail = $('#msg_detail_' + id )
+       ,msg = sanitize($from.val()).replace(/'/g,"\"")
+       ,msg_array = msg.split("\n")
+       ,msg_title = msg_array[0]
+       ,msg_detail = msg_array.length > 1 ? msg_array.slice(1).join('\n') : "" ;
 
     $from.val(msg);
     $to.html(display_filter(msg_title));
+    $detail.html(display_filter(msg_detail));
 
     var status = $("#id_" + id).parent().get(0).id;
     //TODO: グローバルのメソッドを呼んでいるので修正する
@@ -109,24 +113,36 @@ KanbanList.taskAction = (function(){
 
   var edit_before_msg = {};
   function realize_task(id, msg_array){
-    var msg_title = msg_array[0];
-    var msg = msg_array.join('\n');
+    var msg_title = msg_array[0]
+       ,msg_detail = msg_array.length > 1 ? msg_array.slice(1).join('\n') : ""
+       ,msg = msg_array.join('\n');
 
     $('#ms_' + id + '_edit').val(msg);
     $('#msg_' + id ).html(display_filter(msg_title));
+    $('#msg_detail_' + id ).html(display_filter(msg_detail));
     $('#fixed_msg_' + id ).html(display_filter(msg_title));
 
     $('#ms_' + id + '_edit').maxlength({
       'feedback' : '.task-chars-left'
     });
 
-    $('#check_done_' + id).click(function(){
+    $('#check_done_' + id).iCheck({
+      checkboxClass: 'icheckbox_minimal-grey'
+    });
+
+    $('#check_done_' + id).on('ifClicked', function(){
       moveToDone('#id_' + id);
+      $('#check_return_' + id).iCheck('check');
       return false;
     });
 
-    $('#check_return_' + id).click(function(){
+    $('#check_return_' + id).iCheck({
+      checkboxClass: 'icheckbox_minimal-grey'
+    });
+
+    $('#check_return_' + id).on('ifClicked', function(){
       returnToTodo('#id_' + id);
+      $('#check_done_' + id).iCheck('uncheck');
       return false;
     });
 
@@ -140,7 +156,9 @@ KanbanList.taskAction = (function(){
       return false;
     });
 
-    $('#edit_button_' + id ).click(function(){
+    $('#ms_' + id + '_edit').autofit({min_height: MIN_HEIGHT});
+
+    function goToEditMode(id){
       autoLoadingTimer.stop();
       draggableTask.stopByElem($('#id_' + id ).parent());
 
@@ -148,8 +166,25 @@ KanbanList.taskAction = (function(){
 
       utility.toggleDisplay('edit_link_ms_' + id ,'edit_form_ms_' + id );
       $('#ms_' + id + '_edit').get(0).focus();
+      $('#ms_' + id + '_edit').trigger('keyup'); //call autofit
 
       return false;
+    }
+
+    $('#edit_button_' + id ).click(function(){
+      return goToEditMode(id);
+    });
+
+    $('#id_' + id ).dblclick(function(){
+      return goToEditMode(id);
+    });
+
+    $('#edit_form_' + id ).on('keydown', function(event){
+      if( event.ctrlKey === true && event.which === 13 ){
+        $(this).submit();
+        return false;
+      }
+      return true;
     });
 
     $('#edit_form_' + id ).submit(function(){

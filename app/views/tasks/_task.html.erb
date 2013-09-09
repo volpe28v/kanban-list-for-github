@@ -4,19 +4,20 @@
 <div class="sorttime" alt="<%= task.updated_at %>" id="ms_notyet_<%= task.id %>">
     <div class="citem_editable">
       <div id="edit_link_ms_<%= task.id %>" style="display:<%= done == false ? "block" : "none" %>">
-        <table cellpadding=0 cellpadding=0 hspace=0 vspace=0 width="100%"><tr><td align="center" width="16px">
+        <table cellpadding=0 cellpadding=0 hspace=0 vspace=0 width="100%"><tr><td align="center" width="22px">
           <input type="checkbox" id="check_done_<%= task.id %>"/>
         </td><td class="taskLabel" align="left" width="30px">
           <%= link_to "##{task.issue_number}", task.github_url, target: "_blank" %>
         </td><td class="taskLabel" align="left">
-          <div id="msg_<%= task.id %>" style="display:inline;"></div>&nbsp;
+          <div id="msg_<%= task.id %>" style="display:block; word-break:break-all;"></div>
+          <span id="msg_detail_<%= task.id %>" class="msg-detail" style="display:none; word-break:break-all;"></span>
         </td><td align="right" width="78px">
           <div id="ms_<%= task.id %>_menu" style="display:inline;">
             <span class="s12">
               <%= assignee_img(task) %>
               <%= comment_count(task) %>
-              <input id="edit_button_<%= task.id %>" type="image" src="<%= image_path 'pencil.gif' %>" OnMouseOver="$(this).get(0).src = '<%= image_path 'pencil_over.gif' %>'" OnMouseOut="$(this).get(0).src = '<%= image_path 'pencil.gif' %>'" />
-              <input id="delete_button_<%= task.id %>" type="image" src="<%= image_path 'cross.gif' %>" OnMouseOver="$(this).get(0).src = '<%= image_path 'cross_over.gif' %>'" OnMouseOut="$(this).get(0).src = '<%= image_path 'cross.gif' %>'" />
+              <i id="edit_button_<%= task.id %>" class="icon-pencil"></i>
+              <i id="delete_button_<%= task.id %>" class="icon-trash"></i>
             </span>
           </div>
         </td></tr></table>
@@ -24,24 +25,26 @@
       <div id="edit_form_ms_<%= task.id %>" style="display:none">
         <form id="edit_form_<%= task.id %>" method="post" style="display:inline">
           <textarea id="ms_<%= task.id %>_edit" rows="8" style="font-weight:normal;padding:2px;overflow:auto; width: 98%;" onfocus="this.style.background='#ffc';" maxlength="1000"/></textarea>
-          <input type="submit" class="btn btn-primary" value="Update" style="font-size:10px" />
-          <span class="s12">
-            <a href="#" id="edit_cancel_<%= task.id %>">[cancel]</a>
-          </span>
-          <span class="task-chars-left"></span>
-        </form>
+          <div class="edit-footer">
+            <span class="task-chars-left"></span>
+            <span class="edit-control">
+              <input type="submit" id="edit_cancel_<%= task.id %>" class="btn" value="Cancel" style="font-size:10px" tabindex=3 />
+              <input type="submit" class="btn btn-primary" value="OK" style="font-size:10px" tabindex=2 />
+            </span>
+          </form>
+        </div>
       </div>
       <div id="fixed_<%= task.id %>" style="display:<%= done == false ? "none" : "block" %>">
-        <table width="100%"><tr><td align="left" width="16px">
+        <table cellpadding=0 cellpadding=0 hspace=0 vspace=0 width="100%"><tr><td align="center" width="22px">
           <input type="checkbox" id="check_return_<%= task.id %>" checked="checked"/>
         </td><td align="left" width="30px">
           <%= link_to "##{task.issue_number}", task.github_url, target: "_blank" %>
         </td><td class="taskLabel" align="left">
-          <div id="fixed_msg_<%= task.id %>" style="display:inline;"></div>
+          <div id="fixed_msg_<%= task.id %>" style="display:inline; word-break:break-all;"></div>
         </td><td align="right" width="58px">
           <%= assignee_img(task) %>
           <%= comment_count(task) %>
-          <input type="image" id="fixed_delete_button_<%= task.id %>" src="<%= image_path 'cross.gif' %>" OnMouseOver="$(this).get(0).src = '<%= image_path 'cross_over.gif' %>'" OnMouseOut="$(this).get(0).src = '<%= image_path 'cross.gif' %>'"/>
+          <i id="fixed_delete_button_<%= task.id %>" class="icon-trash"></i>
         </td></tr></table>
       </div>
     </div>

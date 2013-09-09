@@ -26,8 +26,9 @@ gem 'octokit'
 gem 'rails_autolink'
 gem 'rake'
 
-gem 'jpmobile'
-gem 'jpmobile-terminfo'
+#TODO: モバイルサイトは一旦非サポート
+#gem 'jpmobile'
+#gem 'jpmobile-terminfo'
 
 group :development, :test do
   gem 'sqlite3'
