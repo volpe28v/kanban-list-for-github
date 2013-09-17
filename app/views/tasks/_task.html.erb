@@ -11,13 +11,12 @@
         </td><td class="taskLabel" align="left">
           <div id="msg_<%= task.id %>" style="display:block; word-break:break-all;"></div>
           <span id="msg_detail_<%= task.id %>" class="msg-detail" style="display:none; word-break:break-all;"></span>
-        </td><td align="right" width="78px">
+        </td><td align="right" width="60px">
           <div id="ms_<%= task.id %>_menu" style="display:inline;">
             <span class="s12">
               <%= assignee_img(task) %>
               <%= comment_count(task) %>
               <i id="edit_button_<%= task.id %>" class="icon-pencil"></i>
-              <i id="delete_button_<%= task.id %>" class="icon-trash"></i>
             </span>
           </div>
         </td></tr></table>
@@ -44,7 +43,6 @@
         </td><td align="right" width="58px">
           <%= assignee_img(task) %>
           <%= comment_count(task) %>
-          <i id="fixed_delete_button_<%= task.id %>" class="icon-trash"></i>
         </td></tr></table>
       </div>
     </div>

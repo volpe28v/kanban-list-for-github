@@ -66,33 +66,6 @@ KanbanList.taskAction = (function(){
     sendCurrentTodo(id, to_status, msg);
   }
 
-  function deleteTodo( delete_id ) {
-    var msg_id = '#msg_' + delete_id.slice(4);
-    $('#delete_task_string').html($(msg_id).html());
-    $('#delete_task_in').modal('show');
-
-    $('#delete_task_ok_button').click(function(){
-      var id = delete_id.slice(4);
-      $.ajax({
-        type: "DELETE",
-        cache: false,
-        url: "tasks/" + id,
-        dataType: "jsonp"
-      });
-
-      $('#delete_task_in').modal('hide')
-      $(delete_id).fadeOut("normal",function(){ $(delete_id).remove(); });
-      $('#delete_task_ok_button').unbind("click");
-      $('#delete_task_cancel_button').unbind("click");
-    });
-
-    $('#delete_task_cancel_button').click(function(){
-      $('#delete_task_in').modal('hide')
-      $('#delete_task_ok_button').unbind("click");
-      $('#delete_task_cancel_button').unbind("click");
-    });
-  }
-
   function updateToDoMsg(id) {
     var $from = $('#ms_' + id + '_edit')
        ,$to = $('#msg_' + id )
@@ -143,16 +116,6 @@ KanbanList.taskAction = (function(){
     $('#check_return_' + id).on('ifClicked', function(){
       returnToTodo('#id_' + id);
       $('#check_done_' + id).iCheck('uncheck');
-      return false;
-    });
-
-    $('#delete_button_' + id ).click(function(){
-      deleteTodo('#id_' + id );
-      return false;
-    });
-
-    $('#fixed_delete_button_' + id ).click(function(){
-      deleteTodo('#id_' + id );
       return false;
     });
 
