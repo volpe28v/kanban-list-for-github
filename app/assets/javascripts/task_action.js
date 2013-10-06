@@ -129,7 +129,7 @@ KanbanList.taskAction = (function(){
 
       utility.toggleDisplay('edit_link_ms_' + id ,'edit_form_ms_' + id );
       $('#ms_' + id + '_edit').get(0).focus();
-      $('#ms_' + id + '_edit').trigger('keyup'); //call autofit
+      $('#ms_' + id + '_edit').keyup(); //call autofit
 
       return false;
     }
