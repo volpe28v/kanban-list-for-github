@@ -138,10 +138,45 @@ KanbanList.taskAction = (function(){
       return goToEditMode(id);
     });
 
+    // クリックでタスク詳細を表示する
+    var isMouseMove = false;
+    var isJustShowDetail = false;
+    $('#id_' + id ).mousedown(function(){
+      isMouseMove = false;
+    });
+    $('#id_' + id ).mousemove(function(){
+      isMouseMove = true;
+    });
+    $('#id_' + id ).click(function(){
+      if (isMouseMove){ return; }
+
+      var $msg_detail = $(this).find('.msg-detail');
+      if ($msg_detail.css('display') == 'none'){
+        $msg_detail.fadeIn('fast');
+        isJustShowDetail = true;
+      }else{
+        if (isJustShowDetail){
+          $msg_detail.fadeOut('fast');
+          isJustShowDetail = false;
+        }
+      }
+    });
+    $('#id_' + id ).hover(
+      function(){},
+      function(){
+        if (isJustShowDetail){
+          $(this).find('.msg-detail').fadeOut('fast');
+          isJustShowDetail = false;
+        }
+      }
+    );
+
+    // ダブルクリックで編集モードへ
     $('#id_' + id ).dblclick(function(){
       return goToEditMode(id);
     });
 
+    // Ctrl - Enter で編集確定
     $('#edit_form_' + id ).on('keydown', function(event){
       if( event.ctrlKey === true && event.which === 13 ){
         $(this).submit();
