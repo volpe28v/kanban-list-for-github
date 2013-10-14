@@ -20,7 +20,7 @@ gem 'jquery_mobile_rails', '~> 1.1.0'
 gem 'twitter-bootstrap-rails'
 
 gem 'will_paginate'
-gem 'devise'
+gem 'devise',"2.2.3"
 gem 'omniauth-github'
 gem 'octokit'
 gem 'rails_autolink'
