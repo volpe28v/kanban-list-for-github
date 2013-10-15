@@ -22,7 +22,7 @@ gem 'twitter-bootstrap-rails'
 gem 'will_paginate'
 gem 'devise',"2.2.3"
 gem 'omniauth-github'
-gem 'octokit'
+gem 'octokit',"1.23.0"
 gem 'rails_autolink'
 gem 'rake'
 
