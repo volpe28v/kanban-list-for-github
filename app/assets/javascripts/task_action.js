@@ -7,24 +7,7 @@ KanbanList.taskAction = (function(){
   var MIN_HEIGHT = 100;
 
   function display_filter(text){
-    // for sanitize
-    var filtered_text = sanitize(text);
-
-    // for url
-    filtered_text = filtered_text.replace(/((https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+))/g,
-      function(){
-        var matched_link = arguments[1];
-        if ( matched_link.match(/(\.jpg|\.gif|\.png|\.bmp)$/)){
-          return '<img src="' + matched_link + '"/>';
-        }else{
-          return '<a href="' + matched_link + '" target="_blank" >' + matched_link + '</a>';
-        }
-      });
-
-    // for new line
-    filtered_text = filtered_text.replace(/\n+$/g,'');
-    filtered_text = filtered_text.replace(/\n/g,'<br>');
-    return filtered_text;
+    return $.decora.to_html(text);
   }
 
   function moveToDone(move_id) {
@@ -175,6 +158,11 @@ KanbanList.taskAction = (function(){
     $('#id_' + id ).dblclick(function(){
       return goToEditMode(id);
     });
+
+    $('#id_' + id ).find('.taskBody').decora({ checkbox_callback: function(that, updateCheckboxStatus){
+      $('#ms_' + id + '_edit').val(updateCheckboxStatus($('#ms_' + id + '_edit').val()));
+      updateToDoMsg(id);
+    }});
 
     // Ctrl - Enter で編集確定
     $('#edit_form_' + id ).on('keydown', function(event){

@@ -8,7 +8,7 @@
           <input type="checkbox" id="check_done_<%= task.id %>"/>
         </td><td class="taskLabel" align="left" width="30px">
           <%= link_to "##{task.issue_number}", task.github_url, target: "_blank" %>
-        </td><td class="taskLabel" align="left">
+        </td><td class="taskLabel taskBody" align="left">
           <div id="msg_<%= task.id %>" style="display:block; word-break:break-all;"></div>
           <span id="msg_detail_<%= task.id %>" class="msg-detail" style="display:none; word-break:break-all;"></span>
         </td><td style="text-align: right; vertical-align: top;" width="60px">
