@@ -56,7 +56,6 @@
       var that = this;
 
       options.checkbox_callback(that, _updateCheckboxStatus.curry(check_no, is_checked))
-      return false;
     });
     return this;
   }
@@ -92,9 +91,7 @@
       }
 
       function _decorate_for_kanban(text){
-        // for sanitize
-        var filtered_text = sanitize(text);
-
+        var filtered_text = text;
         // for url
         filtered_text = filtered_text.replace(/((https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+))/g,
             function(){
@@ -102,7 +99,7 @@
               if ( matched_link.match(/(\.jpg|\.gif|\.png|\.bmp)$/)){
                 return '<img src="' + matched_link + '"/>';
               }else{
-                return '<a class="btn btn-mini btn-inverse" href="' + matched_link + '" target="_blank">URL</a>';
+                return '<a href="' + matched_link + '" target="_blank" >' + matched_link + '</a>';
               }
             });
 
@@ -124,6 +121,8 @@
         return filtered_text;
       }
 
+      // for sanitize
+      var target_text = sanitize(target_text);
       //target_text = _decorate_link_tag( target_text );
       target_text = _decorate_for_kanban( target_text );
       target_text = _decorate_checkbox( target_text );
