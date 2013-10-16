@@ -56,6 +56,7 @@
       var that = this;
 
       options.checkbox_callback(that, _updateCheckboxStatus.curry(check_no, is_checked))
+      return false;
     });
     return this;
   }

@@ -159,6 +159,7 @@ KanbanList.taskAction = (function(){
       return goToEditMode(id);
     });
 
+    // チェックボックスイベント処理
     $('#id_' + id ).find('.taskBody').decora({ checkbox_callback: function(that, updateCheckboxStatus){
       $('#ms_' + id + '_edit').val(updateCheckboxStatus($('#ms_' + id + '_edit').val()));
       updateToDoMsg(id);
