@@ -103,18 +103,6 @@
               }
             });
 
-        // for prefix
-        filtered_text = filtered_text.replace(/^(\[.+?\])/,
-            function(){
-              var matched_prefix = arguments[1];
-              return '<span class="book-name">' + matched_prefix + '</span>';
-            });
-        filtered_text = filtered_text.replace(/^【(.+?)】/,
-            function(){
-              var matched_prefix = arguments[1];
-              return '<span class="book-name">[' + matched_prefix + ']</span> ';
-            });
-
         // for new line
         filtered_text = filtered_text.replace(/\n+$/g,'');
         filtered_text = filtered_text.replace(/\n/g,'<br>');
