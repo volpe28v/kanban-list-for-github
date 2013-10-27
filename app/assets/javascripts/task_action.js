@@ -74,7 +74,7 @@ KanbanList.taskAction = (function(){
        ,msg = msg_array.join('\n');
 
     $('#ms_' + id + '_edit').val(msg);
-    $('#msg_' + id ).html(display_filter(msg_title));
+    $('#msg_' + id ).html(display_filter(msg_title) + (msg_detail.length == 0 ? '' : ' <i class="icon-chevron-down"></i>'));
     $('#msg_detail_' + id ).html(display_filter(msg_detail));
     $('#fixed_msg_' + id ).html(display_filter(msg_title));
 
@@ -131,7 +131,7 @@ KanbanList.taskAction = (function(){
       isMouseMove = true;
     });
     $('#id_' + id ).click(function(){
-      if (isMouseMove){ return; }
+      if (isMouseMove){ return; } // ドラッグ＆ドロップ後はタスク詳細を表示しない
 
       var $msg_detail = $(this).find('.msg-detail');
       if ($msg_detail.css('display') == 'none'){
