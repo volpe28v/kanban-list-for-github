@@ -59,7 +59,7 @@ KanbanList.taskAction = (function(){
        ,msg_detail = msg_array.length > 1 ? msg_array.slice(1).join('\n') : "" ;
 
     $from.val(msg);
-    $to.html(display_filter(msg_title));
+    $to.html(display_filter(msg_title) + (msg_detail.length == 0 ? '' : ' <span class="issue-detail-mark">...</span>'));
     $detail.html(display_filter(msg_detail));
 
     var status = $("#id_" + id).parent().get(0).id;
@@ -74,7 +74,7 @@ KanbanList.taskAction = (function(){
        ,msg = msg_array.join('\n');
 
     $('#ms_' + id + '_edit').val(msg);
-    $('#msg_' + id ).html(display_filter(msg_title) + (msg_detail.length == 0 ? '' : ' <i class="icon-chevron-down"></i>'));
+    $('#msg_' + id ).html(display_filter(msg_title) + (msg_detail.length == 0 ? '' : ' <span class="issue-detail-mark">...</span>'));
     $('#msg_detail_' + id ).html(display_filter(msg_detail));
     $('#fixed_msg_' + id ).html(display_filter(msg_title));
 

@@ -661,6 +661,20 @@ footer span{
   color: #aaa;
 }
 
+.issue-detail-mark {
+  background: #ddd;
+  color: #555;
+  padding: 0 5px;
+  line-height: 6px;
+  height: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  vertical-align: middle;
+  display: inline-block;
+  border-radius: 1px;
+  text-decoration: none;
+}
+
 .msg-detail {
   font-size: 12px;
   font-weight: normal;
