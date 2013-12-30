@@ -677,10 +677,10 @@ footer span{
 
 .msg-detail {
   background-color: #f4f4f4;
-  padding: 3px;
-  margin: 3px 0px;
+  padding: 5px;
+  margin: 2px 0px;
   font-size: 12px;
   font-weight: normal;
-  color: #555;
+  color: #000;
   border-radius: 3px;
 }
