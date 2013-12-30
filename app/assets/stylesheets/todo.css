@@ -662,7 +662,7 @@ footer span{
 }
 
 .issue-detail-mark {
-  background: #ddd;
+  background: #eee;
   color: #555;
   padding: 0 5px;
   line-height: 6px;
@@ -676,7 +676,11 @@ footer span{
 }
 
 .msg-detail {
+  background-color: #f4f4f4;
+  padding: 3px;
+  margin: 3px 0px;
   font-size: 12px;
   font-weight: normal;
   color: #555;
+  border-radius: 3px;
 }

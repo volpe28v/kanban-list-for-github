@@ -68,10 +68,12 @@ $(document).ready(function(){
 
   $("#show_detail_button").click(function(){
     $('.msg-detail').each(function(){
-      if ($(this).css('display') == 'none'){
-        $(this).css('display','inline');
-      }else{
-        $(this).css('display','none');
+      if ($(this).text().length > 0){
+        if ($(this).css('display') == 'none'){
+          $(this).fadeIn('fast');
+        }else{
+          $(this).fadeOut('fast');
+        }
       }
     });
   });

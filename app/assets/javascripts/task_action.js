@@ -133,6 +133,9 @@ KanbanList.taskAction = (function(){
     $('#id_' + id ).click(function(){
       if (isMouseMove){ return; } // ドラッグ＆ドロップ後はタスク詳細を表示しない
 
+      var $detail = $('#msg_detail_' + id );
+      if ($detail.text().length <= 0){ return; }
+
       var $msg_detail = $(this).find('.msg-detail');
       if ($msg_detail.css('display') == 'none'){
         $msg_detail.fadeIn('fast');
