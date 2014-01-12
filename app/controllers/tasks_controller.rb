@@ -66,7 +66,6 @@ class TasksController < ApplicationController
 
   def sync_issues
     @user_name = current_user.name
-    @recent_done_num = 15
 
     github_client = Octokit::Client.new(login: current_user.login, oauth_token: current_user.token)
     sync_issue_by_repo( github_client, current_book.name, current_book.id )
