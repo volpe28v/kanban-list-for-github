@@ -7,7 +7,7 @@ module TasksHelper
 
   def assignee_img(task)
     if task.name
-      raw( image_tag( task.assignee_url, width: "16px", title: task.name, alt: task.name ) )
+      raw( image_tag( task.assignee_url, :class => "assignee-img", width: "16px", title: task.name, alt: task.name ) )
     end
   end
 

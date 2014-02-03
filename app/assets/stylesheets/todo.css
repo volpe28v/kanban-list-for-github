@@ -22,7 +22,12 @@ body, input, select, textarea, button {
   width: 64px;
   height: 64px;
   border: 1px solid #ddd;
+  border-radius: 4px;
   float: right;
+}
+
+.assignee-img {
+  border-radius: 2px;
 }
 
 #doing   { list-style-type: none; margin: 0 10px 0 0; padding: 2px; border : 0px solid #aaaaaa;
