@@ -127,6 +127,11 @@ class ApplicationController < ActionController::Base
           #TODO: issue に対する hook の実現性は確認できたが、全てのリポジトリにここで hook を
           #      登録するかどうかについては検討する必要がありそう
           #create_hook( github_client, new_book.name )
+        else
+          # リポジトリ名が変わっていれば更新する
+          if new_book.name != r.full_name
+            new_book.update_attribute(:name, r.full_name)
+          end
         end
         current_user.books << new_book unless current_user.books.exists?(repo_id: r.id)
       }
