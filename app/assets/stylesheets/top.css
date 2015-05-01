@@ -54,3 +54,9 @@ ul.sign_menu li {
 img {
   vertical-align: middle;
 }
+
+.octocat {
+  padding: 1px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}

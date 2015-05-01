@@ -1,0 +1,224 @@
+$active-state-height: 100px;
+$done-state-height: $active-state-height * 3 + 74;
+#doing, #waiting, #todo_m, #todo_l, #todo_h, #done {
+  list-style-type: none;
+  margin: 2px;
+  padding: 0px;
+  border: 0px solid #aaa;
+  width: 99%;
+  min-height: $active-state-height;
+  height: auto !important;
+  height: $active-state-height;
+}
+#done    {
+  min-height: $done-state-height;
+  height: $done-state-height;
+}
+
+.taskLabel{
+  height: 22px;
+}
+
+#doing li ,#waiting li ,#doing li ,#todo_h li, #todo_m li, #todo_l li, #done li{
+  font-weight: bold;
+  font-size: 12px;
+  text-decoration:none;
+  padding: 3px 1px;
+
+  cursor: pointer;
+  color: #333;
+  background-color: #fafafa;
+  border: 1px solid #ccc;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  -webkit-border-radius: 3px;
+
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
+#done li {
+  cursor: no-drop;
+}
+
+/* for status count */
+.doing ,.waiting ,.doing ,.todo_h ,.todo ,.todo_l ,.done {
+  padding: 4px;
+  border: #E3E3E3 solid;
+  font-weight: bold;
+  line-height: 100%;
+  text-align: center;
+  border-width: 0 0 1px 1px;
+  color: black;
+
+  background-color: #f5f5f5;
+}
+
+/* dashboard task count */
+td.todo_h, td.todo_m, td.todo_l, td.doing, td.waiting, td.done{
+  text-align: right;
+}
+
+/* task status base */
+.memitem {
+  padding: 0;
+  margin:  0px;
+  margin-bottom: 12px;
+}
+
+.memname {
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.memname_doing,
+.memname_todo_h,
+.memname_waiting,
+.memname_done
+{ color: #999; font-size: 12pt;}
+
+.memname_todo_m
+{ color: #999; font-size: 10pt;}
+
+.memname_todo_sub { color: #bbb; font-size: 8pt; }
+
+$border-color: #e5e5e5;
+.memdoc_doing,
+.memdoc_todo_h,
+.memdoc_todo_m,
+.memdoc_todo_l,
+.memdoc_waiting,
+.memdoc_done {
+  border-left: 1px solid $border-color;
+  border-right: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+  padding: 2px 0px;
+  border-top-width: 0;
+  background-color: #fefefe;
+}
+
+.memdoc_doing, .memdoc_todo_l, .memdoc_waiting, .memdoc_done {
+  -webkit-border-bottom-right-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+}
+
+.memdoc_todo {
+  border-bottom: 0px solid $border-color;
+}
+
+.memproto,
+.memproto_todo_m,
+.memproto_todo_l,
+ {
+  border-top: 1px solid $border-color;
+  border-left: 1px solid $border-color;
+  border-right: 1px solid $border-color;
+  font-weight: bold;
+  text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
+  background-color: #f8f8f8;
+}
+
+.memproto {
+  -webkit-border-top-right-radius: 3px;
+  -webkit-border-top-left-radius: 3px;
+}
+
+.task_elem:hover {
+  -webkit-box-shadow: 0px 5px 15px #444;
+  box-shadow: 0px 5px 15px #444;
+  background-color: beige !important;
+}
+
+.row-fluid>.span4 {
+  width: 32.6%;
+}
+
+.row-fluid>[class*="span"] {
+  float: left;
+  margin-left: 10px;
+}
+
+.github_img {
+  padding: 1px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  width: 64px;
+  height: 64px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  float: right;
+}
+
+.login-and-repo {
+  letter-spacing: 0px;
+  font-size: 22px;
+  font-weight: normal;
+  line-height: 28px;
+  margin: 0 0 8px;
+}
+
+#book_name_label {
+  font-weight: bold;
+}
+
+.edit-footer {
+  height: 32px;
+}
+
+.task-chars-left {
+  float: left;
+  margin-left: 10px;
+  font-weight: bold;
+  color: #777;
+}
+
+.edit-control {
+  float: right;
+  margin-right: 5px;
+}
+
+.msg-detail {
+  background-color: #f4f4f4;
+  padding: 5px;
+  margin: 2px 0px;
+  font-size: 12px;
+  font-weight: normal;
+  color: #000;
+  border-radius: 3px;
+}
+
+.issue-detail-mark {
+  background: #eee;
+  color: #555;
+  padding: 0 5px;
+  line-height: 6px;
+  height: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  vertical-align: middle;
+  display: inline-block;
+  border-radius: 1px;
+  text-decoration: none;
+}
+
+footer {
+  width: 100%;
+  margin-top: 4px;
+  padding: 20px 0;
+  text-align: right;
+  border-top: 1px solid #DDD;
+}
+
+footer span {
+  margin-right: 20px;
+}
+
+.ui-state-highlight {
+  height: 1.5em;
+  border-style : dashed;
+  background-color: beige !important;
+}
+
+#add_todo_form_msg {
+  background: #fafafa;
+
+
+}
