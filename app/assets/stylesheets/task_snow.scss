@@ -73,14 +73,18 @@ td.todo_h, td.todo_m, td.todo_l, td.doing, td.waiting, td.done{
 .memname_todo_h,
 .memname_waiting,
 .memname_done
-{ color: #999; font-size: 12pt;}
+{ color: white; font-size: 12pt;}
 
-.memname_todo_m
-{ color: #999; font-size: 10pt;}
+.memname_todo_m {
+  color: white;
+  font-size: 10pt;
+  font-weight: normal;
+}
 
 .memname_todo_sub { color: #bbb; font-size: 8pt; }
 
-$border-color: #e5e5e5;
+$border-color: #999;
+
 .memdoc_doing,
 .memdoc_todo_h,
 .memdoc_todo_m,
@@ -92,7 +96,7 @@ $border-color: #e5e5e5;
   border-bottom: 1px solid $border-color;
   padding: 2px 0px;
   border-top-width: 0;
-  background-color: #fefefe;
+  background-color: white;
 }
 
 .memdoc_doing, .memdoc_todo_l, .memdoc_waiting, .memdoc_done {
@@ -105,15 +109,24 @@ $border-color: #e5e5e5;
 }
 
 .memproto,
-.memproto_todo_m,
 .memproto_todo_l,
  {
   border-top: 1px solid $border-color;
   border-left: 1px solid $border-color;
   border-right: 1px solid $border-color;
+  padding: 3px 0px;
   font-weight: bold;
-  text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
-  background-color: #f8f8f8;
+  background-color: $border-color;
+}
+
+.memproto_todo_m,
+ {
+  border-top: 0px solid $border-color;
+  border-left: 1px solid $border-color;
+  border-right: 1px solid $border-color;
+  padding: 1px 0px;
+  font-weight: bold;
+  background-color: #bbb;
 }
 
 .memproto {
