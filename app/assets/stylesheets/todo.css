@@ -610,6 +610,15 @@ table#table-01 td {
   text-shadow: 0px 1px 1px white;
 }
 
+.books-side-list {
+  list-style-type: none;
+  margin-left: 0px;
+}
+
+.books-side-list li {
+  margin: 5px 0;
+}
+
 #loading_msg_area {
   color: #888;
 }
