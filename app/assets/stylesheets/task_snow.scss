@@ -181,6 +181,10 @@ $border-color: #999;
   margin: 5px 0;
 }
 
+.books-side-list li:hover {
+  background-color: beige;
+}
+
 .edit-footer {
   height: 32px;
 }
