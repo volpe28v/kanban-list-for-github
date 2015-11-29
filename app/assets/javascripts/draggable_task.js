@@ -29,6 +29,7 @@ KanbanList.draggableTask = (function(){
 
     connectWith: 'ul',
     placeholder: 'ui-state-highlight',
+    distance: 6,
     cancel: "#cancel",
     scroll: true,
     tolerance: 'pointer',
